@@ -1,0 +1,231 @@
+body {
+  background-color: rgb(183, 197, 197);
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Helvetica", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+header,
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: rgb(219, 8, 219);
+}
+
+h1 {
+  width: 50vh;
+  /* width: 50vmin; */
+  /* width: 50%; */
+  margin: 20px 10px;
+  font-size: 2.5rem;
+  text-align: center;
+  color: #333333;
+  background-color: rgb(37, 203, 140);
+}
+
+/* -------------------------------------------------- SARI RENK */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+
+  padding: 2rem 2rem; /* Üst ve alt boşluk */
+  width: 75%;
+  gap: 1rem; /* Elemanlar arası boşluk */
+
+  background-color: rgb(219, 201, 8);
+}
+
+.task_container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem; /* Elemanlar arası boşluk */
+  width: 100%;
+}
+
+.t_type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem; /* Elemanlar arası boşluk */
+  width: 100%;
+  min-height: 50vh;
+
+  border-radius: 12px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
+  background-color: cadetblue;
+}
+
+.t_type_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  background-color: rgb(159, 159, 159);
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+  color: #333333;
+  box-shadow: #333333 0px 4px 8px -2px;
+
+}
+
+.t_type_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1px; /* Elemanlar arası boşluk */
+  width: 100%;
+}
+
+/* ----------------------------------------------------------------------------------------------------  */
+.task_item {
+  display: flex;
+  align-items: center;
+
+  width: 95%; /* parent'ın %100'ü → taşma olmaz */
+  padding: 10px 12px; /* düşük yükseklik, ferah ama kompakt */
+
+  background-color: #e8f5f5; /* çok hafif cyan/teal – göz yormaz */
+  border-radius: 8px;
+  gap: 1rem;
+
+  box-sizing: border-box; /* padding genişliği yemiyor */
+}
+
+/* Metin taşmasını kesin önle */
+.task_title {
+  flex: 1; /* kalan alanı doldur */
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #0f2f2f;
+  line-height: 1.35;
+  overflow: hidden; /* taşan metni kes */
+  text-overflow: ellipsis; /* ... ile bitir */
+  white-space: nowrap; /* tek satırda tut (isteğe göre değiştirebilirsin) */
+}
+
+/* Alternatif: metin birden fazla satıra dönsün istiyorsan bunu kullan */
+.task_title.multi-line {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Checkbox'ı sabit tut, sağa yasla */
+.checkbox-wrapper-31 {
+  flex-shrink: 0; /* küçülmesin */
+  width: 36px; /* svg'nin yaklaşık boyutu + biraz boşluk */
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tamamlandığında güzel efekt (bunu beğendiğin için koruyoruz) */
+.task_item:has(input[type="checkbox"]:checked) .task_title {
+  color: #6b9e9e;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #a0caca;
+}
+
+/* Üst container'lara da basit kural ekle (taşmayı buradan da engelle) */
+.t_type_body,
+#single_tasks_container {
+  width: 100%;
+  max-width: 100%; /* ekstra güvenlik */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* çocuk eleman taşarsa kes */
+}
+
+/* Task'ler arası boşluk istersen */
+.t_type_body > .task_item + .task_item {
+  margin-top: 8px;
+}
+
+/* ----------------------------------------------------------------------------------------------------  */
+
+/* .todo-wrapper {
+
+  width: 80%; 
+  max-width: 700px; 
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px; 
+  background-color: rgb(8, 219, 219);
+} */
+
+.checkbox-wrapper-31:hover .check {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-31 {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+.checkbox-wrapper-31 .background {
+  fill: #ccc;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+.checkbox-wrapper-31 .stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+  stroke-dashoffset: 100;
+  stroke-dasharray: 100;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+.checkbox-wrapper-31 .check {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+  stroke-dashoffset: 22;
+  stroke-dasharray: 22;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+.checkbox-wrapper-31 input[type="checkbox"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  opacity: 0;
+  -appearance: none;
+  -webkit-appearance: none;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .background {
+  fill: #6cbe45;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .stroke {
+  stroke-dashoffset: 0;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .check {
+  stroke-dashoffset: 0;
+}
