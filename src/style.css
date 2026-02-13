@@ -4,6 +4,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Helvetica", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 header,
 main {
@@ -49,7 +50,7 @@ h1 {
   width: 100%;
 }
 
-.task_type {
+.t_type {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,41 +64,96 @@ h1 {
   background-color: cadetblue;
 }
 
-.task_type_head {
+.t_type_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
   background-color: rgb(159, 159, 159);
   width: 100%;
   border-radius: 12px 12px 0 0;
   text-align: center;
   color: #333333;
   box-shadow: #333333 0px 4px 8px -2px;
-  border: 1px solid #333333;
+
 }
 
-.task_type_body {
+.t_type_body {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.5rem; /* Elemanlar arası boşluk */
+  gap: 1px; /* Elemanlar arası boşluk */
   width: 100%;
 }
 
+/* ----------------------------------------------------------------------------------------------------  */
 .task_item {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  padding-block: 4px;
-  padding-inline: 10px;
-  width: 90%;
-  justify-content: space-between;
+
+  width: 95%; /* parent'ın %100'ü → taşma olmaz */
+  padding: 10px 12px; /* düşük yükseklik, ferah ama kompakt */
+
+  background-color: #e8f5f5; /* çok hafif cyan/teal – göz yormaz */
   border-radius: 8px;
-  background-color: rgb(8, 219, 219);
+  gap: 1rem;
+
+  box-sizing: border-box; /* padding genişliği yemiyor */
 }
 
+/* Metin taşmasını kesin önle */
 .task_title {
-  font-size: 1.2rem;
-  color: #333333;
+  flex: 1; /* kalan alanı doldur */
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #0f2f2f;
+  line-height: 1.35;
+  overflow: hidden; /* taşan metni kes */
+  text-overflow: ellipsis; /* ... ile bitir */
+  white-space: nowrap; /* tek satırda tut (isteğe göre değiştirebilirsin) */
 }
+
+/* Alternatif: metin birden fazla satıra dönsün istiyorsan bunu kullan */
+.task_title.multi-line {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Checkbox'ı sabit tut, sağa yasla */
+.checkbox-wrapper-31 {
+  flex-shrink: 0; /* küçülmesin */
+  width: 36px; /* svg'nin yaklaşık boyutu + biraz boşluk */
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Tamamlandığında güzel efekt (bunu beğendiğin için koruyoruz) */
+.task_item:has(input[type="checkbox"]:checked) .task_title {
+  color: #6b9e9e;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #a0caca;
+}
+
+/* Üst container'lara da basit kural ekle (taşmayı buradan da engelle) */
+.t_type_body,
+#single_tasks_container {
+  width: 100%;
+  max-width: 100%; /* ekstra güvenlik */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* çocuk eleman taşarsa kes */
+}
+
+/* Task'ler arası boşluk istersen */
+.t_type_body > .task_item + .task_item {
+  margin-top: 8px;
+}
+
+/* ----------------------------------------------------------------------------------------------------  */
 
 /* .todo-wrapper {
 
