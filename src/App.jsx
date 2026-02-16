@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import TaskItem from "./components/TaskItem";
+import DeadlineTaskItem from "./components/DeadlineTaskItem";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header>
+        <h1>Plan your daily tasks</h1>
+      </header>
+      <main className="app-container">
+        <div className="wrapper">
+          <div>
+            <h2>Tasks</h2>
+          </div>
+          <div className="task_container">
+            <div className="task_type">
+              <div className="task_type_head">
+                <h3>Single Tasks</h3>
+              </div>
+              <div className="task_type_body" id="single_tasks_container">
+                <TaskItem title="Mikrowelle Al" />
+                <TaskItem title="Kahve Demle" />
+                <TaskItem title="Kiraz Cekirdegi Yastigi Al" />
+              </div>
+            </div>
+            <div className="task_type">
+              <div className="task_type_head">
+                <h3>Has Deadline</h3>
+              </div>
+              <DeadlineTaskItem title="Vodafone Kundigung" datum="22.02.2026" />
+            </div>
+            <div className="task_type">
+              <div className="task_type_head">
+                <h3>Recurring Tasks</h3>
+              </div>
+            </div>
+          </div>
+          <div className="ornek">
+            <div className="card-div">asdfsadfasdf</div>
+          </div>
+        </div>
+      </main>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
