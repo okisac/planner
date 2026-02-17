@@ -1,0 +1,160 @@
+/* ============================================
+   TASK ITEM - Ana Kart Yapısı
+   ============================================ */
+.task_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Elemanlar arası boşluk */
+  width: 95%; /* Parent'ın tamamını kapla */
+  padding: 12px 16px 12px 20px; /* Sol tarafta ::after için alan */
+  background: linear-gradient(145deg, #ffffff, #e0e0e0);
+  border-radius: 12px;
+  border-top: 1px solid #ffffff;
+  border-right: 1px solid #a0a0a0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Sol Kenar Vurgusu */
+.task_item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  border-radius: 12px 0 0 12px;
+  background-color: #8e1b32;
+}
+
+/* Hover Efekti */
+.task_item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* ============================================
+   TAMAMLANMIŞ GÖREV STİLİ
+   ============================================ */
+.task_item--completed {
+  background: linear-gradient(145deg, #e8e8e8, #c0c0c0);
+  border-top: 1px solid #b0b0b0;
+  border-right: 1px solid #808080;
+}
+
+.task_item--completed .task_title span {
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #e67e08;
+  opacity: 0.6;
+  color: #6b9e9e;
+}
+
+.task_item--completed::after {
+  background-color: #4a7c59; /* Yeşilimsi ton */
+}
+
+/* ============================================
+   CHECKBOX WRAPPER
+   ============================================ */
+.checkbox-wrapper {
+  flex-shrink: 0; /* Checkbox asla küçülmesin */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================
+   GÖREV İÇERİĞİ (Metin Alanı)
+   ============================================ */
+.task_content {
+  flex: 1; /* Kalan alanı doldur */
+  min-width: 0; /* Flexbox overflow fix */
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task_title {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #0f2f2f;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Tek satırda tut */
+  transition: all 0.3s ease;
+}
+
+/* Çok uzun metinler için alternatif (multi-line) */
+.task_title.multi-line {
+  white-space: normal;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Maksimum 2 satır */
+  -webkit-box-orient: vertical;
+}
+
+/* ============================================
+   SİLME BUTONU - Ghost Action
+   ============================================ */
+.delete-btn {
+  flex-shrink: 0; /* Buton asla küçülmesin */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  color: #b3b3b3;
+  opacity: 0; /* Başlangıçta gizli */
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:focus {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+/* Hover durumunda görünür ol */
+.task_item:hover .delete-btn {
+  opacity: 0.5;
+}
+
+.delete-btn:hover {
+  opacity: 1 !important;
+  background-color: #fee2e2;
+  color: #ef4444;
+  transform: scale(1.1);
+}
+
+/* Tamamlanmış görevlerde kalıcı görünür */
+.task_item--completed .delete-btn {
+  opacity: 0.6;
+  color: #9ca3af;
+}
+
+.task_item--completed .delete-btn:hover {
+  opacity: 1 !important;
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+/* ============================================
+   DATUM (Tarih) - Eğer ileride eklenirse
+   ============================================ */
+.datum {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.task_item--completed .datum {
+  text-decoration: line-through;
+  opacity: 0.5;
+}

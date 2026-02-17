@@ -21,7 +21,7 @@ h1 {
   /* width: 50vmin; */
   /* width: 50%; */
   margin: 20px 10px;
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
   color: #333333;
   background-color: rgb(37, 203, 140);
@@ -38,19 +38,20 @@ h1 {
   padding: 2rem;
   gap: 1rem; /* Elemanlar arası boşluk */
 
-  background-color: rgb(177, 177, 177);
+  background-color: rgb(180, 163, 163);
 }
 
 .task_container {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   justify-content: center;
-  gap: 1rem; /* Elemanlar arası boşluk */
+  gap: 1rem;
   width: 100%;
 }
 
 .task_type {
+  flex: 1 1 0%; /* Eşit genişlik */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,11 +59,12 @@ h1 {
   gap: 0.5rem; /* Elemanlar arası boşluk */
   width: 100%;
   min-height: 50vh;
+  border-right: 2px solid #ffffff;
 
   border-radius: 12px;
   box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
 
-  background-color: rgb(214, 214, 214);
+  background-color: rgb(255, 232, 181);
   border-radius: 16px;
 
   box-shadow:
@@ -72,8 +74,14 @@ h1 {
 
 .task_type_head {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-evenly;
   align-items: center;
+  position: relative;
+
+  border-top: 1px solid #e6e6e6;
+
+  padding-block: 1rem;
   background-color: rgb(159, 159, 159);
   width: 100%;
   border-radius: 12px 12px 0 0;
@@ -82,210 +90,69 @@ h1 {
   box-shadow: #333333 0px 4px 8px -2px;
 }
 
+/* Başlık tam ortada kalır */
+.task_type_head h3 {
+  margin: 0;
+  font-size: 1.3rem; /* boyutunu kendi isteğine göre ayarla */
+  text-align: center;
+  flex: 1; /* alanı kaplasın, merkezde kalsın */
+}
+
+/* Buton container'ı sağa yasla */
+.add_btn_container {
+  position: absolute;
+  right: 10px; /* sağdan 2rem içeride */
+  top: 50%;
+  transform: translateY(-50%); /* dikeyde tam ortala */
+}
+
+/* Butonun kendisi (önceki stillerin korunarak) */
+.add_btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  background: #6cbe45;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1px solid black;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  outline: none;
+}
+
+.add_btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.add_btn:focus,
+.add_btn:focus-visible {
+  outline: none !important;
+}
+
 .task_type_body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: 1px; /* Elemanlar arası boşluk */
+  padding-top: 2px;
+  padding-bottom: 6px;
+  gap: 6px;
   width: 100%;
 }
+
 
 /* ----------------------------------------------------------------------------------------------------  */
-.task_item {
-  position: relative;
-  display: flex;
-  align-items: center;
 
-  width: 95%; /* parent'ın %100'ü → taşma olmaz */
-  padding: 10px 12px; /* düşük yükseklik, ferah ama kompakt */
 
-  background: linear-gradient(145deg, #ffffff, #e0e0e0);
-  border-radius: 15px;
-  box-shadow:
-    5px 5px 10px #bebebe,
-    -5px -5px 10px #ffffff,
-    inset 2px 2px 5px rgba(255, 255, 255, 0.5),
-    inset -2px -2px 5px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: all 0.2s;
-  gap: 1rem;
-
-  box-sizing: border-box; /* padding genişliği yemiyor */
-}
-
-.task_item::after {
-  content: "";
-  position: absolute;
-  left: 0px;
-  width: 8px;
-  height: calc(100%);
-  border-radius: 8px 0 0 8px;
-  background-color: #8e1b32;
-}
-
-/* Metin taşmasını kesin önle */
-.task_title {
-  flex: 1; /* kalan alanı doldur */
-  font-size: 1.05rem;
-  font-weight: 500;
-  color: #0f2f2f;
-  line-height: 1.35;
-  overflow: hidden; /* taşan metni kes */
-  text-overflow: ellipsis; /* ... ile bitir */
-  white-space: nowrap; /* tek satırda tut (isteğe göre değiştirebilirsin) */
-}
-
-/* Alternatif: metin birden fazla satıra dönsün istiyorsan bunu kullan */
-.task_title.multi-line {
-  white-space: normal;
-  word-break: break-word;
-}
-
-/* Checkbox'ı sabit tut, sağa yasla */
-.checkbox-wrapper-31 {
-  flex-shrink: 0; /* küçülmesin */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* .task_item:has(input[type="checkbox"]:checked) .task_title,
-.task_item:has(input[type="checkbox"]:checked) .datum {
-  color: #6b9e9e;
-  text-decoration: line-through;
-  text-decoration-thickness: 1.5px;
-  text-decoration-color: #e67e08;
-} */
-
-/* Üst container'lara da basit kural ekle (taşmayı buradan da engelle) */
-.task_type_body,
-#single_tasks_container {
-  width: 100%;
-  max-width: 100%; /* ekstra güvenlik */
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  overflow: hidden; /* çocuk eleman taşarsa kes */
-}
-
-/* Task'ler arası boşluk istersen */
-.task_type_body > .task_item + .task_item {
-  margin-top: 8px;
-}
-
-.deadline_container {
-  position: relative;
-  padding: 4px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.task_item:has(input[type="checkbox"]:checked) .deadline_container {
-  border: 1px solid #6b9e9e;
-  padding: 4px;
-  opacity: 0.5;
-}
-
-.task_item:has(input[type="checkbox"]:checked) .deadline_container::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    to bottom right,
-    transparent calc(50% - 2px),
-    #e90808 50%,
-    transparent calc(50% + 2px)
-  );
-}
-
-.datum {
-  font-size: 0.85rem;
-  color: #4a4a4a;
-}
-/* ----------------------------------------------------------------------------------------------------  */
-
-/* .todo-wrapper {
-
-  width: 80%; 
-  max-width: 700px; 
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px; 
-  background-color: rgb(8, 219, 219);
-} */
-
-.checkbox-wrapper-31:hover .check {
-  stroke-dashoffset: 0;
-}
-
-.checkbox-wrapper-31 {
-  position: relative;
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-}
-.checkbox-wrapper-31 .background {
-  fill: #cfcfcf;
-  transition: ease all 0.6s;
-  box-shadow: -2px 2px 4px rgba(255, 255, 255, 0.2);
-  -webkit-transition: ease all 0.6s;
-}
-.checkbox-wrapper-31 .stroke {
-  fill: none;
-  stroke: #fff;
-  stroke-miterlimit: 10;
-  stroke-width: 2px;
-  stroke-dashoffset: 100;
-  stroke-dasharray: 100;
-  transition: ease all 0.6s;
-  -webkit-transition: ease all 0.6s;
-}
-.checkbox-wrapper-31 .check {
-  fill: none;
-  stroke: #fff;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2px;
-  stroke-dashoffset: 22;
-  stroke-dasharray: 22;
-  transition: ease all 0.6s;
-  -webkit-transition: ease all 0.6s;
-}
-.checkbox-wrapper-31 input[type="checkbox"] {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  margin: 0;
-  opacity: 0;
-  -appearance: none;
-  -webkit-appearance: none;
-}
-.checkbox-wrapper-31 input[type="checkbox"]:hover {
-  cursor: pointer;
-}
-.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .background {
-  fill: #6cbe45;
-}
-.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .stroke {
-  stroke-dashoffset: 0;
-}
-.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .check {
-  stroke-dashoffset: 0;
-}
 
 /* ----------------------------------------------------------------------------------------------------  */
 
@@ -296,24 +163,23 @@ h1 {
   border-radius: 16px;
 }
 
-.card-div {
-  margin: 20px;
-  padding: 60px 20px;
-  width: 200px;
-  height: 100px;
-  background-color: rgb(214, 214, 214);
-  border-radius: 16px;
-
-  transform-style: preserve-3d;
-  transform: translateZ(20px);
-
-  box-shadow:
-    -10px 10px 20px rgba(0, 0, 0, 0.5),
-    5px 0px 15px rgba(255, 255, 255, 0.3);
-
-  transition: transform 0.3s ease;
+.card {
+  width: 150px;
+  height: 150px;
+  background: #e0e0e0;
+  border-radius: 10px;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #a0a0a0;
+  border-bottom: 4px solid #808080;
+  box-shadow: 0 4px 0 #606060;
+  cursor: pointer;
+  transition: all 0.1s;
 }
 
-.card-div:hover {
-  transform: translateZ(30px);
+.card:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #606060;
+  border-bottom: 2px solid #808080;
 }
+

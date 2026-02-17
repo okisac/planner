@@ -1,7 +1,7 @@
 function DeadlineTaskItem({ title, datum }) {
   return (
     <div className="task_item">
-      <div className="checkbox-wrapper-31">
+      <div className="checkbox-wrapper">
         <input type="checkbox" />
         <svg viewBox="0 0 35.6 35.6">
           <circle className="background" cx="17.8" cy="17.8" r="17.8"></circle>
