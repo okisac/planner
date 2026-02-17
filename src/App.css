@@ -1,42 +1,319 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.app-container {
+  background-color: rgb(183, 197, 197);
+  width: 100%;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Helvetica", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  background-color: rgb(146, 76, 146);
+}
+
+h1 {
+  width: 50vh;
+  /* width: 50vmin; */
+  /* width: 50%; */
+  margin: 20px 10px;
+  font-size: 2.5rem;
   text-align: center;
+  color: #333333;
+  background-color: rgb(37, 203, 140);
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* -------------------------------------------------- SARI RENK */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  width: 75%;
+  padding: 2rem;
+  gap: 1rem; /* Elemanlar arası boşluk */
+
+  background-color: rgb(177, 177, 177);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.task_container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem; /* Elemanlar arası boşluk */
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.task_type {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem; /* Elemanlar arası boşluk */
+  width: 100%;
+  min-height: 50vh;
+
+  border-radius: 12px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
+
+  background-color: rgb(214, 214, 214);
+  border-radius: 16px;
+
+  box-shadow:
+    -10px 10px 20px rgba(0, 0, 0, 0.5),
+    5px 0px 15px rgba(255, 255, 255, 0.3);
 }
 
-.card {
-  padding: 2em;
+.task_type_head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(159, 159, 159);
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+  color: #333333;
+  box-shadow: #333333 0px 4px 8px -2px;
 }
 
-.read-the-docs {
-  color: #888;
+.task_type_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1px; /* Elemanlar arası boşluk */
+  width: 100%;
+}
+
+/* ----------------------------------------------------------------------------------------------------  */
+.task_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  width: 95%; /* parent'ın %100'ü → taşma olmaz */
+  padding: 10px 12px; /* düşük yükseklik, ferah ama kompakt */
+
+  background: linear-gradient(145deg, #ffffff, #e0e0e0);
+  border-radius: 15px;
+  box-shadow:
+    5px 5px 10px #bebebe,
+    -5px -5px 10px #ffffff,
+    inset 2px 2px 5px rgba(255, 255, 255, 0.5),
+    inset -2px -2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 1rem;
+
+  box-sizing: border-box; /* padding genişliği yemiyor */
+}
+
+.task_item::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  width: 8px;
+  height: calc(100%);
+  border-radius: 8px 0 0 8px;
+  background-color: #8e1b32;
+}
+
+/* Metin taşmasını kesin önle */
+.task_title {
+  flex: 1; /* kalan alanı doldur */
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #0f2f2f;
+  line-height: 1.35;
+  overflow: hidden; /* taşan metni kes */
+  text-overflow: ellipsis; /* ... ile bitir */
+  white-space: nowrap; /* tek satırda tut (isteğe göre değiştirebilirsin) */
+}
+
+/* Alternatif: metin birden fazla satıra dönsün istiyorsan bunu kullan */
+.task_title.multi-line {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Checkbox'ı sabit tut, sağa yasla */
+.checkbox-wrapper-31 {
+  flex-shrink: 0; /* küçülmesin */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .task_item:has(input[type="checkbox"]:checked) .task_title,
+.task_item:has(input[type="checkbox"]:checked) .datum {
+  color: #6b9e9e;
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: #e67e08;
+} */
+
+/* Üst container'lara da basit kural ekle (taşmayı buradan da engelle) */
+.task_type_body,
+#single_tasks_container {
+  width: 100%;
+  max-width: 100%; /* ekstra güvenlik */
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* çocuk eleman taşarsa kes */
+}
+
+/* Task'ler arası boşluk istersen */
+.task_type_body > .task_item + .task_item {
+  margin-top: 8px;
+}
+
+.deadline_container {
+  position: relative;
+  padding: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.task_item:has(input[type="checkbox"]:checked) .deadline_container {
+  border: 1px solid #6b9e9e;
+  padding: 4px;
+  opacity: 0.5;
+}
+
+.task_item:has(input[type="checkbox"]:checked) .deadline_container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom right,
+    transparent calc(50% - 2px),
+    #e90808 50%,
+    transparent calc(50% + 2px)
+  );
+}
+
+.datum {
+  font-size: 0.85rem;
+  color: #4a4a4a;
+}
+/* ----------------------------------------------------------------------------------------------------  */
+
+/* .todo-wrapper {
+
+  width: 80%; 
+  max-width: 700px; 
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px; 
+  background-color: rgb(8, 219, 219);
+} */
+
+.checkbox-wrapper-31:hover .check {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-31 {
+  position: relative;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+.checkbox-wrapper-31 .background {
+  fill: #cfcfcf;
+  transition: ease all 0.6s;
+  box-shadow: -2px 2px 4px rgba(255, 255, 255, 0.2);
+  -webkit-transition: ease all 0.6s;
+}
+.checkbox-wrapper-31 .stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+  stroke-dashoffset: 100;
+  stroke-dasharray: 100;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+.checkbox-wrapper-31 .check {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+  stroke-dashoffset: 22;
+  stroke-dasharray: 22;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+.checkbox-wrapper-31 input[type="checkbox"] {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0;
+  opacity: 0;
+  -appearance: none;
+  -webkit-appearance: none;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .background {
+  fill: #6cbe45;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .stroke {
+  stroke-dashoffset: 0;
+}
+.checkbox-wrapper-31 input[type="checkbox"]:checked + svg .check {
+  stroke-dashoffset: 0;
+}
+
+/* ----------------------------------------------------------------------------------------------------  */
+
+.ornek {
+  width: 100%;
+  height: 500px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px;
+}
+
+.card-div {
+  margin: 20px;
+  padding: 60px 20px;
+  width: 200px;
+  height: 100px;
+  background-color: rgb(214, 214, 214);
+  border-radius: 16px;
+
+  transform-style: preserve-3d;
+  transform: translateZ(20px);
+
+  box-shadow:
+    -10px 10px 20px rgba(0, 0, 0, 0.5),
+    5px 0px 15px rgba(255, 255, 255, 0.3);
+
+  transition: transform 0.3s ease;
+}
+
+.card-div:hover {
+  transform: translateZ(30px);
 }
