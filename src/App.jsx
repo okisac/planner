@@ -7,36 +7,87 @@ import "./styles/TaskItem.css";
 import "./styles/AddTaskInput.css";
 
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
-  // 1. Veri yapısını Obje Array'ine çevirdik
+  // 1. Başlangıç verisine ID ve Zaman Damgaları ekledik
   const [tasks, setTasks] = useState([
-    { title: "Mikrowelle Al", isCompleted: false },
-    { title: "Kahve Demle", isCompleted: true },
-    { title: "Kiraz Cekirdegi Yastigi Al", isCompleted: false },
+    {
+      id: uuidv4(),
+      title: "Mikrowelle Al",
+      isCompleted: false,
+      createdAt: Date.now(),
+      completedAt: null,
+    },
+    {
+      id: uuidv4(),
+      title: "Kahve Demle",
+      isCompleted: true,
+      createdAt: Date.now() - 1000,
+      completedAt: Date.now(),
+    },
+    {
+      id: uuidv4(),
+      title: "Kiraz Cekirdegi Yastigi Al",
+      isCompleted: false,
+      createdAt: Date.now() - 2000,
+      completedAt: null,
+    },
   ]);
 
   const [isAdding, setIsAdding] = useState(false);
 
-  // 2. Yeni görev ekleme fonksiyonunu güncelle
+  // 2. Yeni görev ekleme (ID ve createdAt ile)
   const handleSave = (text) => {
-    const newTask = { title: text, isCompleted: false };
+    if (!text.trim()) return; // Boş görev eklemeyi engelle
+    const newTask = {
+      id: uuidv4(),
+      title: text,
+      isCompleted: false,
+      createdAt: Date.now(), // Sıralama için önemli
+      completedAt: null,
+    };
     setTasks([...tasks, newTask]);
     setIsAdding(false);
   };
 
-  // 3. Tamamlama (Toggle) fonksiyonu
-  const toggleTask = (index) => {
-    const newTasks = [...tasks];
-    newTasks[index].isCompleted = !newTasks[index].isCompleted;
-    setTasks(newTasks);
+  // 3. Tamamlama (Toggle) - ID üzerinden işlem yapıyoruz
+  const toggleTask = (id) => {
+    setTasks(
+      tasks.map((task) => {
+        if (task.id === id) {
+          const newStatus = !task.isCompleted;
+          return {
+            ...task,
+            isCompleted: newStatus,
+            completedAt: newStatus ? Date.now() : null, // Tamamlandığı anı kaydet
+          };
+        }
+        return task;
+      }),
+    );
   };
 
-  // 4. Silme fonksiyonu
-  const deleteTask = (index) => {
-    const newTasks = tasks.filter((_, i) => i !== index);
-    setTasks(newTasks);
+  // 4. Silme - ID üzerinden filtreleme
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
   };
+
+  // 5. SIRALAMA MANTIĞI (Render öncesi listeyi hazırlıyoruz)
+  const sortedTasks = [...tasks].sort((a, b) => {
+    // Kural 1: Tamamlanmamışlar (Active) her zaman üstte
+    if (a.isCompleted !== b.isCompleted) {
+      return a.isCompleted ? 1 : -1;
+    }
+
+    // Kural 2: Eğer ikisi de ACTIVE ise -> Eklenme sırasına göre (Eski üstte)
+    if (!a.isCompleted) {
+      return a.createdAt - b.createdAt;
+    }
+
+    // Kural 3: Eğer ikisi de COMPLETED ise -> Tamamlanma sırasına göre (Eski üstte)
+    return a.completedAt - b.completedAt;
+  });
 
   return (
     <>
@@ -65,13 +116,13 @@ function App() {
                     onSave={handleSave}
                   />
                 )}
-                {tasks.map((task, index) => (
+                {sortedTasks.map((task) => (
                   <TaskItem
-                    key={index}
-                    title={task.title} // task değil, task.title olmalı!
+                    key={task.id} // Index yerine benzersiz ID
+                    title={task.title}
                     isCompleted={task.isCompleted}
-                    onToggle={() => toggleTask(index)}
-                    onDelete={() => deleteTask(index)}
+                    onToggle={() => toggleTask(task.id)} // ID gönderiyoruz
+                    onDelete={() => deleteTask(task.id)} // ID gönderiyoruz
                   />
                 ))}
               </div>
