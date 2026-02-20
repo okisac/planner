@@ -34,7 +34,7 @@ h1 {
   align-items: center;
   justify-content: flex-start;
   min-height: 100vh;
-  width: 75%;
+  width: 99%;
   padding: 2rem;
   gap: 1rem; /* Elemanlar arası boşluk */
 
@@ -106,32 +106,44 @@ h1 {
   transform: translateY(-50%); /* dikeyde tam ortala */
 }
 
-/* Butonun kendisi (önceki stillerin korunarak) */
+/* From Uiverse.io by andrew-demchenk0 */
 .add_btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 100%;
-  background: #6cbe45;
-  color: #ffffff;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1;
-  border: none;
-  padding: 2px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  border: 1px solid black;
-  transition: all 0.2s ease;
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
-  outline: none;
+  align-items: center;
+  padding: 8px;
+  height: 32px;
+  width: 32px;
+  border: 1px solid #292929;
+  background: green;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.plus {
+  font-size: 24px;
+  color: #fff;
 }
 
 .add_btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  background: rgb(8, 147, 82);
+  border: 1px solid black;
+}
+
+.add_btn:hover .plus {
+  animation: slope 1.2s linear infinite;
+}
+
+@keyframes slope {
+  0% {
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+  }
 }
 
 .add_btn:focus,
@@ -149,16 +161,11 @@ h1 {
   width: 100%;
 }
 
-
-/* ----------------------------------------------------------------------------------------------------  */
-
-
-
 /* ----------------------------------------------------------------------------------------------------  */
 
 .ornek {
   width: 100%;
-  height: 500px;
+  height: 200px;
   background-color: rgb(255, 255, 255);
   border-radius: 16px;
 }
@@ -167,19 +174,22 @@ h1 {
   width: 150px;
   height: 150px;
   background: #e0e0e0;
-  border-radius: 10px;
-  border-top: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top: 1px solid #ffffff;
   border-left: 2px solid #ffffff;
   border-right: 2px solid #a0a0a0;
   border-bottom: 4px solid #808080;
-  box-shadow: 0 4px 0 #606060;
+  /* box-shadow: 0 4px 0 #606060; */
   cursor: pointer;
   transition: all 0.1s;
 }
-
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #606060;
+}
 .card:active {
   transform: translateY(4px);
   box-shadow: 0 0 0 #606060;
   border-bottom: 2px solid #808080;
 }
-
+/* ----------------------------------------------------------------------------------------------------  */

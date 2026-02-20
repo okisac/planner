@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+
+.timeline-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.timeline-wrapper::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 0;
+  bottom: 0;
+  width: 1.5px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #3a3a3a 15%,
+    #3a3a3a 85%,
+    transparent 100%
+  );
+  z-index: 0;
+}
+
+.deadline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 6px 0 32px 0;
+  cursor: pointer;
+}
+
+.timeline-node {
+  flex-shrink: 0;
+  width: 28px; /* Daha kibar */
+  height: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node-visual {
+  width: 24px; /* İç görsel alan */
+  height: 24px;
+  border-radius: 50%;
+  /* 2. Daha aydınlık bir gri ve belirgin border */
+  border: 1.5px solid #d1d5db;
+  background-color: #f9fafb; /* Karanlık değil, açık gri/beyazımsı */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+/* İçerideki nokta (bekleme durumu) */
+.node-inner {
+  width: 6px; /* Daha küçük nokta */
+  height: 6px;
+  border-radius: 50%;
+  background-color: #9ca3af; /* Daha yumuşak bir gri */
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.checkmark {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s ease;
+}
+
+.deadline-item.is-completed .node-visual {
+  border-color: #22c55e;
+  background-color: #4ade80;
+  box-shadow: 0 0 16px #4ade8044;
+}
+
+.deadline-item.is-completed .node-inner {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.deadline-item.is-completed .checkmark {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.task-body {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  border-bottom: 1px solid #1e1e1e;
+  transition: border-color 0.3s ease;
+}
+
+.deadline-item:hover .task-body {
+  border-color: #2a2a2a;
+}
+
+.task-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #e8e8e8;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+.task-subtitle {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #555;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.urgency-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  padding: 3px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+  width: fit-content;
+  transition: all 0.3s ease;
+}
+
+.urgency-badge.critical {
+  background-color: #ff3b3b18;
+  color: #ff6b6b;
+  border: 1px solid #ff3b3b30;
+}
+.urgency-badge.warning {
+  background-color: #f59e0b18;
+  color: #fbbf24;
+  border: 1px solid #f59e0b30;
+}
+.urgency-badge.safe {
+  background-color: #4ade8018;
+  color: #4ade80;
+  border: 1px solid #4ade8030;
+}
+
+.urgency-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: currentColor;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.date-block {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  transition: all 0.3s ease;
+}
+
+.date-day {
+  font-family: "DM Serif Display", serif;
+  font-size: 2.2rem;
+  line-height: 1;
+  color: #e8e8e8;
+  letter-spacing: -0.03em;
+  transition: all 0.3s ease;
+}
+
+.date-month-year {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.date-month {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.date-separator {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #333;
+}
+.date-year {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #444;
+  letter-spacing: 0.08em;
+}
+
+.deadline-item.is-completed .task-title {
+  text-decoration: line-through;
+  text-decoration-color: #444;
+  color: #444;
+}
+.deadline-item.is-completed .task-subtitle {
+  color: #333;
+}
+.deadline-item.is-completed .urgency-badge {
+  opacity: 0;
+  pointer-events: none;
+}
+.deadline-item.is-completed .date-day {
+  color: #333;
+}
+.deadline-item.is-completed .date-month {
+  color: #2a2a2a;
+}
+.deadline-item.is-completed .date-year {
+  color: #2a2a2a;
+}
+
+/* .delete-btn {
+  position: absolute;
+  right: 0;
+  top: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2a2a2a;
+  padding: 4px;
+  border-radius: 6px;
+  opacity: 0;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} 
+
+.deadline-item:hover .delete-btn {
+  opacity: 1;
+  color: #444;
+}
+.delete-btn:hover {
+  color: #ef4444 !important;
+  background-color: #ef444415;
+}
+  */
