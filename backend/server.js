@@ -43,14 +43,31 @@ app.get("/api/tasks", async (req, res) => {
 // 2. Yeni Görev Ekle (CREATE)
 app.post("/api/tasks", async (req, res) => {
   try {
-    const { id, title, is_completed, created_at, completed_at } = req.body;
+    const {
+      id,
+      title,
+      task_type,
+      is_completed,
+      created_at,
+      completed_at,
+      deadline_date,
+    } = req.body;
+
     const newTask = await pool.query(
-      "INSERT INTO tasks (id, title, is_completed, created_at, completed_at) VALUES ($1, $2, $3, $4, $5) RETURNING *",
-      [id, title, is_completed, created_at, completed_at],
+      "INSERT INTO tasks (id, title, task_type, is_completed, created_at, completed_at, deadline_date) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+      [
+        id,
+        title,
+        task_type || "single", // Eğer boş gelirse single yap
+        is_completed || false,
+        created_at,
+        completed_at || null,
+        deadline_date || null,
+      ],
     );
     res.json(newTask.rows[0]);
   } catch (err) {
-    console.error(err.message);
+    console.error("DB Hatası:", err.message);
     res.status(500).send("Ekleme hatası");
   }
 });
@@ -60,13 +77,20 @@ app.put("/api/tasks/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { is_completed, completed_at } = req.body;
+
+    // Sadece is_completed ve completed_at'i güncelle ama TÜM satırı geri dön
     const updateTask = await pool.query(
       "UPDATE tasks SET is_completed = $1, completed_at = $2 WHERE id = $3 RETURNING *",
       [is_completed, completed_at, id],
     );
-    res.json(updateTask.rows[0]);
+
+    if (updateTask.rows.length === 0) {
+      return res.status(404).json({ message: "Görev bulunamadı" });
+    }
+
+    res.json(updateTask.rows[0]); // Burada dönen objede task_type ve deadline_date olmalı
   } catch (err) {
-    console.error(err.message);
+    console.error("Güncelleme hatası:", err.message);
     res.status(500).send("Güncelleme hatası");
   }
 });

@@ -134,7 +134,8 @@
 
 /* DELETE BTN WRAPPER - Kırmızı Alan */
 .delete-btn-wrapper-single {
-  width: 15%;
+  width: clamp(32px, 5vw, 44px);
+  height: clamp(32px, 5vw, 44px);
   display: flex;
   align-items: center;
   justify-content: center;

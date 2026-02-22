@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function AddTaskInput({ onSave, onCancel }) {
+function AddSingleTaskInput({ onSave, onCancel }) {
   const [taskText, setTaskText] = useState("");
 
   const handleSave = () => {
@@ -55,4 +55,4 @@ function AddTaskInput({ onSave, onCancel }) {
   );
 }
 
-export default AddTaskInput;
+export default AddSingleTaskInput;
