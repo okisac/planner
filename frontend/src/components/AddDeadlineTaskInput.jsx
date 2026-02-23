@@ -1,12 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
 
+  const isPastDate = (() => {
+    if (!date) return false;
+    const parsed = new Date(date);
+
+    // 1) Geçersiz tarihse (NaN) veya yıl henüz 4 haneli değilse (örn: 0002) uyarı verme
+    if (isNaN(parsed.getTime()) || parsed.getFullYear() < 1000) return false;
+
+    // 2) Bugünle kıyasla
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    return parsed < today;
+  })();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim() || !date) return;
+    if (title.trim().length < 2) return;
 
     onSave({
       title: title,
@@ -14,8 +29,28 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
     });
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    } else if (e.key === "Escape") {
+      onCancel();
+    }
+  };
+
+  const handleBackdropClick = (e) => {
+    // sadece backdrop'a tıklanınca (kartın kendisi hariç)
+    if (e.target.classList.contains("deadline-modal-overlay")) {
+      onCancel();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [title, date]);
+
   return (
-    <div className="deadline-modal-overlay">
+    <div className="deadline-modal-overlay" onClick={handleBackdropClick}>
       <div className="deadline-modal">
         <h3>New Deadline Task</h3>
         <form onSubmit={handleSubmit}>
@@ -27,7 +62,10 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
               placeholder="What needs to be done?"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              maxLength={32}
+              onKeyDown={handleKeyDown}
             />
+            <span className="char-counter">{title.length}/32</span>
           </div>
 
           <div className="input-group">
@@ -36,7 +74,13 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
               type="date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
+              className={isPastDate ? "input-warning" : ""}
             />
+            {isPastDate && (
+              <span className="past-date-warning">
+                ⚠ You've entered a past date
+              </span>
+            )}
           </div>
 
           <div className="modal-actions">
@@ -46,7 +90,8 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
             <button
               type="submit"
               className="save-btn"
-              disabled={!title || !date}
+              onClick={handleSubmit}
+              disabled={!title.trim() || title.trim().length < 2 || !date}
             >
               Add Task
             </button>

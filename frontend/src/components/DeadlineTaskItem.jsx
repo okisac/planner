@@ -1,8 +1,8 @@
 import "../styles/DeadlineTaskItem.css";
+import { useState, useEffect } from "react";
 
 function DeadlineTaskItem({
   title,
-  subtitle,
   day,
   month,
   year,
@@ -11,9 +11,28 @@ function DeadlineTaskItem({
   onToggle,
   onDelete,
 }) {
+  const [showPulse, setShowPulse] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPulse(false), 7000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const formatDays = (value) => {
+    return Math.abs(value) === 1 ? "day" : "days";
+  };
+
+  const getUrgencyDisplay = () => {
+    if (urgency === 0) return "Today ";
+    if (urgency < 0)
+      return `Overdue (${Math.abs(urgency)} ${formatDays(urgency)}) ⚠️`;
+    return `${urgency} ${formatDays(urgency)} left`;
+  };
+
   const getUrgencyClass = () => {
-    if (urgency <= 3) return "critical";
-    if (urgency <= 14) return "warning";
+    if (urgency < 0) return "overdue";
+    if (urgency === 0 || urgency <= 2) return "critical";
+    if (urgency <= 5) return "warning";
     return "safe";
   };
 
@@ -43,8 +62,10 @@ function DeadlineTaskItem({
               <span className="task-title">{title}</span>
               {!is_completed && urgency !== undefined && (
                 <span className={`urgency-badge ${getUrgencyClass()}`}>
-                  <span className="urgency-dot"></span>
-                  {urgency} days left
+                  <span
+                    className={`urgency-dot ${showPulse ? "pulse-once" : ""}`}
+                  ></span>
+                  {getUrgencyDisplay()}
                 </span>
               )}
             </div>

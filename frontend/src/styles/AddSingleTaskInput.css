@@ -117,3 +117,17 @@
     border-radius: 10px;
   }
 }
+
+.char-counter {
+  font-size: 0.7rem;
+  color: #999;
+  text-align: right;
+  margin-top: 2px;
+}
+
+.past-date-warning {
+  font-size: 0.75rem;
+  color: #f59e0b;
+  margin-top: 4px;
+  display: block;
+}

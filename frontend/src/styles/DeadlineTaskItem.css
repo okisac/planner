@@ -229,16 +229,41 @@
   height: 5px;
   border-radius: 50%;
   background-color: currentColor;
-  animation: pulse 2s infinite;
+}
+
+.urgency-dot.pulse-once {
+  animation: pulse 1s ease-in-out infinite;
 }
 
 @keyframes pulse {
   0%,
   100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.3;
+    transform: scale(1.4);
+  }
+}
+
+/* Overdue badge */
+.urgency-badge.overdue {
+  background-color: #7f1d1d18;
+  color: #ef4444;
+  border: 1px solid #ef444440;
+  font-weight: 700;
+}
+
+@keyframes pulse-fast {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(0.8);
   }
 }
 
