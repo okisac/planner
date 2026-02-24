@@ -1,0 +1,75 @@
+/* ─── WRAPPER: Her iki modda da (Edit/Save) tamamen aynı ─── */
+.edit-btn-wrapper-single {
+  width: clamp(24px, 5vw, 36px);
+  height: clamp(24px, 5vw, 36px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Hover rengi her zaman aynı turuncu/krem */
+.edit-btn-wrapper-single:hover {
+  background-color: #ffe5c2;
+}
+
+/* ─── BUTTON & ICON: Temel Stil ─── */
+.edit-btn-single {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #000000;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Task hover -> İkonun hafif belirmesi */
+.task_item:not(.task_item--completed):hover .edit-btn-single {
+  opacity: 0.3;
+  background-color: transparent;
+}
+
+.task_item:not(.task_item--completed)
+  .edit-btn-wrapper-single.save-mode
+  .save-btn {
+  opacity: 1 !important;
+  color: #000000 !important;
+}
+
+.task_item:not(.task_item--completed) .delete-btn-wrapper-single .delete-btn {
+  opacity: 1 !important;
+  color: #000000 !important;
+}
+
+.task_item:not(.task_item--completed) .edit-btn-wrapper-single.save-mode {
+  background-color: #4ade80 !important;
+}
+
+/* Wrapper hover -> İkonun netleşmesi */
+.edit-btn-wrapper-single:hover .edit-btn-single {
+  opacity: 1 !important;
+  color: #ff8c00; /* Varsayılan hover rengi (Turuncu)  */
+}
+
+/* ─── SAVE MODE: Sadece İkon Rengini Ezme ─── */
+.edit-btn-wrapper-single.save-mode .edit-btn-single {
+  color: #4ade80 !important; /* Kaydetme modunda hover rengi mavi */
+  background-color: transparent;
+}
+
+.edit-btn-wrapper-single.save-mode .delete-btn-wrapper-single {
+  color: #e1ff00 !important; /* Kaydetme modunda hover rengi mavi */
+  background-color: transparent;
+}
+
+.edit-btn-wrapper-single.save-mode:hover .edit-btn-single {
+  background-color: transparent;
+}

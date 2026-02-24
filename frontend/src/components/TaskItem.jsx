@@ -1,6 +1,30 @@
-function TaskItem({ title, isCompleted, onToggle, onDelete }) {
+import React, { useState } from "react";
+import InlineEditInput from "./InlineEditInput";
+import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
+import "../styles/TaskItem.css";
+
+function TaskItem({
+  id,
+  title,
+  isCompleted,
+  onToggle,
+  onDelete,
+  onUpdateTitle,
+}) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempTitle, setTempTitle] = useState(title);
+
+  const handleSave = () => {
+    if (tempTitle.trim().length >= 3) {
+      onUpdate(id, { title: tempTitle.trim() }); // Backend/Parent güncelleme fonksiyonun
+      setIsEditing(false);
+    }
+  };
+
   return (
     <div className={`task_item ${isCompleted ? "task_item--completed" : ""}`}>
+      {/* SOL: Checkbox / Node */}
       <div className="timeline-node" onClick={onToggle}>
         <div className="node-visual">
           <div className="node-inner"></div>
@@ -19,31 +43,30 @@ function TaskItem({ title, isCompleted, onToggle, onDelete }) {
 
       <div className="task_content">
         <div className="task_title">
-          <span>{title}</span>
+          {!isEditing ? (
+            <span onDoubleClick={() => setIsEditing(true)}>{title}</span>
+          ) : (
+            <InlineEditInput
+              initialValue={title}
+              onChange={setTempTitle} // Köprüyü kurduk
+              onSave={handleSave}
+              onCancel={() => {
+                setIsEditing(false);
+                setTempTitle(title); // İptalde eski haline dön
+              }}
+              maxLength={32}
+            />
+          )}
         </div>
-        <div className="delete-btn-wrapper-single">
-          <button
-            className="delete-btn-single"
-            onClick={onDelete}
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="3 6 5 6 21 6" />
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-              <line x1="10" y1="11" x2="10" y2="17" />
-              <line x1="14" y1="11" x2="14" y2="17" />
-            </svg>
-          </button>
+
+        <div className="task_actions">
+          {!isCompleted && (
+            <EditButton
+              isEditing={isEditing}
+              onEdit={isEditing ? handleSave : () => setIsEditing(true)}
+            />
+          )}
+          <DeleteButton onDelete={onDelete} isCompleted={isCompleted} />
         </div>
       </div>
     </div>

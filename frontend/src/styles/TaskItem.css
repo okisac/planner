@@ -1,3 +1,4 @@
+/* ─── 1. ANA TAŞIYICI (CARD) ─── */
 .task_item {
   position: relative;
   display: flex;
@@ -22,7 +23,7 @@
   width: 6px;
   height: 100%;
   border-radius: 12px 0 0 12px;
-  background-color: #8e1b32;
+  background-color: #8e1b32; /* Varsayılan kırmızı bar */
 }
 
 .task_item:hover {
@@ -30,6 +31,7 @@
   transform: translateY(-1px);
 }
 
+/* ─── 2. TAMAMLANMIŞ DURUM (COMPLETED) ─── */
 .task_item--completed {
   background: linear-gradient(145deg, #e8e8e8, #c0c0c0);
   border-top: 1px solid #b0b0b0;
@@ -37,7 +39,7 @@
 }
 
 .task_item--completed::after {
-  background-color: #4a7c59;
+  background-color: #4a7c59; /* Yeşil bar */
 }
 
 .task_item--completed .task_title span {
@@ -48,7 +50,7 @@
   color: #6b9e9e;
 }
 
-/* NODE */
+/* ─── 3. SOL TARAF (CHECKBOX / NODE) ─── */
 .timeline-node {
   flex: 0 0 38px;
   width: 15%;
@@ -103,7 +105,7 @@
   transform: scale(1);
 }
 
-/* CONTENT - Ana Taşıyıcı */
+/* ─── 4. ORTA ALAN (CONTENT & TITLE) ─── */
 .task_content {
   flex: 1;
   display: flex;
@@ -112,12 +114,11 @@
   padding-right: 8px;
 }
 
-/* TITLE - Metin Alanı */
 .task_title {
   flex: 1;
   min-width: 0;
   display: flex;
-  align-items: center; /* Metni dikeyde ortala */
+  align-items: center;
   overflow: hidden;
 }
 
@@ -132,56 +133,19 @@
   color: #000000;
 }
 
-/* DELETE BTN WRAPPER - Kırmızı Alan */
-.delete-btn-wrapper-single {
-  width: clamp(32px, 5vw, 44px);
-  height: clamp(32px, 5vw, 44px);
+/* ─── 5. SAĞ TARAF (ACTIONS) ─── */
+.task_actions {
   display: flex;
+  flex-direction: column; /* Butonlar alt alta */
   align-items: center;
   justify-content: center;
+  gap: 4px;
+  padding-left: 8px;
 }
 
-/* DELETE BTN - Butonun Kendisi */
-.delete-btn-single {
-  cursor: pointer;
-  outline: none;
-  border: none;
-  color: #000000;
-  opacity: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
-}
-
-/* HOVER & STATES */
-
-/* 2) Task hover -> Buton şeffaf görünür */
-.task_item:not(.task_item--completed):hover .delete-btn-single {
+/* ─── 6. BUTON ETKİLEŞİMLERİ (CONTEXT SENSITIVE) ─── */
+/* Task hover olduğunda içindeki butonların görünürlüğünü tetikle */
+.task_item:not(.task_item--completed):hover .delete-btn-single,
+.task_item:not(.task_item--completed):hover .edit-btn-single {
   opacity: 0.3;
-}
-
-/* 3) Wrapper hover -> Arka plan kırmızımsı, ikon net */
-.delete-btn-wrapper-single:hover {
-  background-color: #ffb7b7 !important;
-  border-radius: 8px;
-}
-
-.delete-btn-wrapper-single:hover .delete-btn-single {
-  opacity: 1 !important;
-  color: #ff0000 !important; /* Kırmızı ikon */
-}
-
-/* ------ ------ ------------------------------- DOGRU */
-
-/* 4) Checked -> İkon her zaman görünür */
-.task_item--completed .delete-btn-single {
-  opacity: 0.5;
-  color: #000000;
-}
-
-/* 5) Checked + Wrapper hover */
-.task_item--completed .delete-btn-wrapper-single:hover .delete-btn-single {
-  opacity: 1 !important;
-  color: #ff0000 !important;
 }
