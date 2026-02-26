@@ -32,9 +32,11 @@ function App() {
 
   return (
     <>
-      <header>
-        <h1>Plan your daily tasks</h1>
-      </header>
+      <div>
+        <header>
+          <h1>Plan your daily tasks</h1>
+        </header>
+      </div>
       <main className="app-container">
         <div className="wrapper">
           <div>
