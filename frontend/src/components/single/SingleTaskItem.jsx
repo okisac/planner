@@ -1,30 +1,27 @@
-import React, { useState } from "react";
-import InlineEditInput from "./InlineEditInput";
-import DeleteButton from "./DeleteButtonSingle";
-import EditButton from "./EditButton";
-import "../styles/TaskItem.css";
+import { useState } from "react";
+import InlineEditInput from "../InlineEditInput";
+import DeleteButtonSingle from "./DeleteButtonSingle";
+import EditButtonSingle from "../single/EditButtonSingle";
+import "../../styles/TaskItem.css";
 
-function TaskItem({
-  id, // ← kullanılmıyor
+function SingleTaskItem({
   title,
   isCompleted,
   onToggle,
   onDelete,
-  onUpdateTitle,
-  onSaveEdit, // ← ekle
+  onSaveEdit,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempTitle, setTempTitle] = useState(title);
 
   const handleEditSave = async () => {
     if (tempTitle.trim().length < 3) return;
-    await onSaveEdit(tempTitle); // ← fetch burada değil, App.jsx'te
+    await onSaveEdit(tempTitle);
     setIsEditing(false);
   };
 
   return (
     <div className={`task_item ${isCompleted ? "task_item--completed" : ""}`}>
-      {/* SOL: Checkbox / Node */}
       <div className="timeline-node" onClick={onToggle}>
         <div className="node-visual">
           <div className="node-inner"></div>
@@ -61,16 +58,16 @@ function TaskItem({
 
         <div className="task_actions">
           {!isCompleted && (
-            <EditButton
+            <EditButtonSingle
               isEditing={isEditing}
               onEdit={isEditing ? handleEditSave : () => setIsEditing(true)}
             />
           )}
-          <DeleteButton onDelete={onDelete} isCompleted={isCompleted} />
+          <DeleteButtonSingle onDelete={onDelete} isCompleted={isCompleted} />
         </div>
       </div>
     </div>
   );
 }
 
-export default TaskItem;
+export default SingleTaskItem;

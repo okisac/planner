@@ -1,19 +1,24 @@
-import React from "react";
-import "../styles/EditButton.css";
+import "../../styles/EditButtonSingle.css";
 
-function EditButton({ onEdit, isEditing }) {
+function EditButtonSingle({ onEdit, isEditing }) {
+  const handleMouseDown = (e) => {
+    if (isEditing) {
+      e.preventDefault();
+      onEdit();
+    }
+  };
+
   return (
     <div className={`edit-btn-wrapper-single ${isEditing ? "save-mode" : ""}`}>
       <button
         className={`edit-btn-single ${isEditing ? "save-btn" : ""}`}
-        onClick={onEdit}
-        /* Kritik: Edit modundayken butona basıldığında input'un kapanmasını engeller */
-        onMouseDown={(e) => isEditing && e.preventDefault()}
+        onMouseDown={(e) => {
+          e.preventDefault(); // Bu satır, input'un odağını kaybetmesini (Blur) ENGELLER
+          onEdit(); // Kaydetme veya Edit moduna geçme işlemini başlatır
+        }}
         type="button"
-        title={isEditing ? "Save changes" : "Edit task"}
       >
         {isEditing ? (
-          /* ONAY İKONU: Kalemle aynı 16x16 boyutunda ve aynı stroke ağırlığında */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -28,7 +33,6 @@ function EditButton({ onEdit, isEditing }) {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         ) : (
-          /* KALEM İKONU: Mevcut ikonun aynısı */
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -49,4 +53,4 @@ function EditButton({ onEdit, isEditing }) {
   );
 }
 
-export default EditButton;
+export default EditButtonSingle;

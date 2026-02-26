@@ -126,8 +126,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding: 10px 14px;
+  gap: 4px;
+  padding: 10px 8px 10px 12px;
   background: linear-gradient(145deg, #ffffff, #e0e0e0);
   border-radius: 12px;
   border-top: 1px solid #ffffff;
@@ -148,6 +148,10 @@
   background-color: #8e1b32;
 }
 
+.deadline-item.is-completed .task-body::after {
+  background-color: #4a7c59;
+}
+
 .deadline-item:hover .task-body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -164,15 +168,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   min-width: 0;
   row-gap: 6px;
   width: 100%;
-  padding-right: 20px;
 }
 
 .task-text-group {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   gap: 4px;
 }
 
@@ -192,6 +198,14 @@
   letter-spacing: 0.02em;
   text-transform: uppercase;
   transition: all 0.3s ease;
+}
+
+task_actions_deadline {
+  display: flex;
+  flex-direction: column; /* Butonları alt alta */
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 /* ─── URGENCY BADGE ─── */
@@ -288,8 +302,8 @@
 
 .date-month-year {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
 }
 
 .date-month {

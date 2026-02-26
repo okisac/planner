@@ -1,0 +1,70 @@
+/* ─── WRAPPER: Her iki modda da (Edit/Save) tamamen aynı ─── */
+.edit-btn-wrapper-deadline {
+  width: clamp(24px, 5vw, 36px);
+  height: clamp(24px, 5vw, 36px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+/* Hover rengi her zaman aynı turuncu/krem */
+.edit-btn-wrapper-deadline:hover {
+  background-color: #ffcf8f;
+  border-radius: 8px;
+}
+
+/* ─── BUTTON & ICON: Temel Stil ─── */
+.edit-btn-deadline {
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #000000;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
+}
+
+/* Task hover -> İkonun hafif belirmesi */
+.task-body:not(.task_item--completed):hover .edit-btn-deadline {
+  opacity: 0.3;
+  background-color: transparent;
+}
+
+.task-body:not(.task_item--completed)
+  .edit-btn-wrapper-deadline.save-mode
+  .save-btn {
+  opacity: 1 !important;
+  color: #000000 !important;
+}
+
+.task-body:not(.task_item--completed) .delete-btn-wrapper-deadline .delete-btn {
+  opacity: 1 !important;
+  color: #000000 !important;
+}
+
+.task-body:not(.task_item--completed) .edit-btn-wrapper-deadline.save-mode {
+  background-color: #4ade80 !important;
+}
+
+/* Wrapper hover -> İkonun netleşmesi */
+.edit-btn-wrapper-deadline:hover .edit-btn-deadline {
+  opacity: 1 !important;
+  color: #ff8c00; /* Varsayılan hover rengi (Turuncu)  */
+}
+
+/* ─── SAVE MODE: Sadece İkon Rengini Ezme ─── */
+.edit-btn-wrapper-deadline.save-mode .edit-btn-deadline {
+  color: #4ade80 !important; /* Kaydetme modunda hover rengi mavi */
+  background-color: transparent;
+}
+
+.edit-btn-wrapper-deadline.save-mode:hover .edit-btn-deadline {
+  background-color: transparent;
+  border-radius: 8px;
+}

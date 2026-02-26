@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function AddSingleTaskInput({ onSave, onCancel }) {
   const [taskText, setTaskText] = useState("");
 
-  const handleSave = () => {
+  const handleSubmit = () => {
     if (taskText.trim() && taskText.trim().length >= 2) {
       onSave(taskText.trim());
       setTaskText("");
@@ -12,7 +12,7 @@ function AddSingleTaskInput({ onSave, onCancel }) {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
-      handleSave();
+      handleSubmit();
     } else if (e.key === "Escape") {
       onCancel();
     }
@@ -46,7 +46,7 @@ function AddSingleTaskInput({ onSave, onCancel }) {
           </button>
           <button
             className="save-btn"
-            onClick={handleSave}
+            onClick={handleSubmit}
             disabled={!taskText.trim() || taskText.trim().length < 2}
           >
             Save

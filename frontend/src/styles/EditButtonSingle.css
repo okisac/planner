@@ -6,13 +6,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  transition: background-color 0.2s ease;
-  cursor: pointer;
 }
 
 /* Hover rengi her zaman aynı turuncu/krem */
 .edit-btn-wrapper-single:hover {
-  background-color: #ffe5c2;
+  background-color: #ffcf8f;
+  border-radius: 8px;
 }
 
 /* ─── BUTTON & ICON: Temel Stil ─── */
@@ -72,4 +71,5 @@
 
 .edit-btn-wrapper-single.save-mode:hover .edit-btn-single {
   background-color: transparent;
+  border-radius: 8px;
 }

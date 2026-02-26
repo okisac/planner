@@ -76,19 +76,35 @@ app.post("/api/tasks", async (req, res) => {
 app.put("/api/tasks/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { is_completed, completed_at } = req.body;
+    const { is_completed, completed_at, title } = req.body;
 
-    // Sadece is_completed ve completed_at'i güncelle ama TÜM satırı geri dön
-    const updateTask = await pool.query(
-      "UPDATE tasks SET is_completed = $1, completed_at = $2 WHERE id = $3 RETURNING *",
-      [is_completed, completed_at, id],
-    );
-
-    if (updateTask.rows.length === 0) {
+    // Önce mevcut task'ı al
+    const existingTask = await pool.query("SELECT * FROM tasks WHERE id = $1", [
+      id,
+    ]);
+    if (existingTask.rows.length === 0) {
       return res.status(404).json({ message: "Görev bulunamadı" });
     }
 
-    res.json(updateTask.rows[0]); // Burada dönen objede task_type ve deadline_date olmalı
+    // Güncellenecek alanları belirle
+    const updatedTitle =
+      title !== undefined ? title : existingTask.rows[0].title;
+    const updatedIsCompleted =
+      is_completed !== undefined
+        ? is_completed
+        : existingTask.rows[0].is_completed;
+    const updatedCompletedAt =
+      completed_at !== undefined
+        ? completed_at
+        : existingTask.rows[0].completed_at;
+
+    // Güncelleme sorgusu
+    const updateTask = await pool.query(
+      "UPDATE tasks SET title = $1, is_completed = $2, completed_at = $3 WHERE id = $4 RETURNING *",
+      [updatedTitle, updatedIsCompleted, updatedCompletedAt, id],
+    );
+
+    res.json(updateTask.rows[0]);
   } catch (err) {
     console.error("Güncelleme hatası:", err.message);
     res.status(500).send("Güncelleme hatası");

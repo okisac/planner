@@ -10,7 +10,7 @@
 .inline-edit-input {
   width: 100%;
   color: #171717;
-  padding: 6px 35px 6px 10px;
+  padding: 6px;
   font-size: 1rem;
   border: 1.5px solid #313f3a;
   border-radius: 8px;
@@ -28,13 +28,22 @@
   background: #797979d7;
 }
 
+/* InlineEditInput.css */
+
+.inline-edit-container .char-count-2 {
+  width: 100%;
+  display: flex;
+  text-align: end;
+  justify-content: flex-end;
+  width: 100%;
+  transform: scale(0.8);
+  transform-origin: right;
+  margin-top: 4px;
+}
+
 .edit-char-counter {
-  text-align: right;
-  font-size: small;
+  font-size: 10px;
   color: #474747;
-  margin-top: 2px;
-  pointer-events: none;
-  transition: color 0.2s ease;
 }
 
 .edit-char-counter.warn {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/InlineEditInput.css";
 
 function InlineEditInput({
@@ -63,9 +63,11 @@ function InlineEditInput({
         onBlur={handleBlur}
         maxLength={maxLength}
       />
-      <span className={getCounterClass()}>
-        {value.length}/{maxLength}
-      </span>
+      <div className="char-count-2">
+        <span className={getCounterClass()}>
+          {value.length}/{maxLength}
+        </span>
+      </div>
     </div>
   );
 }

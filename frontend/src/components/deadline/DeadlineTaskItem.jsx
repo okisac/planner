@@ -1,5 +1,9 @@
-import "../styles/DeadlineTaskItem.css";
+import "../../styles/DeadlineTaskItem.css";
 import { useState, useEffect } from "react";
+import InlineEditInput from "../InlineEditInput";
+import DeleteButtonDeadline from "../deadline/DeleteButtonDeadline";
+import EditButtonDeadline from "../deadline/EditButtonDeadline";
+import "../../styles/TaskItem.css";
 
 function DeadlineTaskItem({
   title,
@@ -7,11 +11,20 @@ function DeadlineTaskItem({
   month,
   year,
   urgency,
-  is_completed,
+  isCompleted,
   onToggle,
   onDelete,
+  onSaveEdit,
 }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempTitle, setTempTitle] = useState(title);
   const [showPulse, setShowPulse] = useState(true);
+
+  const handleEditSave = async () => {
+    if (tempTitle.trim().length < 3) return;
+    await onSaveEdit(tempTitle);
+    setIsEditing(false);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setShowPulse(false), 7000);
@@ -37,7 +50,7 @@ function DeadlineTaskItem({
   };
 
   return (
-    <div className={`deadline-item ${is_completed ? "is-completed" : ""}`}>
+    <div className={`deadline-item ${isCompleted ? "is-completed" : ""}`}>
       <div className="timeline-node-deadline" onClick={onToggle}>
         <div className="timeline-line"></div> {/* ← Çizgi artık burada */}
         <div className="node-visual">
@@ -59,8 +72,26 @@ function DeadlineTaskItem({
         <div className="task-info">
           <div className="task-main-row">
             <div className="task-text-group">
-              <span className="task-title">{title}</span>
-              {!is_completed && urgency !== undefined && (
+              {!isEditing ? (
+                <span
+                  className="task-title"
+                  onDoubleClick={() => setIsEditing(true)}
+                >
+                  {title}
+                </span>
+              ) : (
+                <InlineEditInput
+                  initialValue={title}
+                  onChange={setTempTitle}
+                  onSave={handleEditSave}
+                  onCancel={() => {
+                    setIsEditing(false);
+                    setTempTitle(title);
+                  }}
+                  maxLength={32}
+                />
+              )}
+              {!isCompleted && urgency !== undefined && (
                 <span className={`urgency-badge ${getUrgencyClass()}`}>
                   <span
                     className={`urgency-dot ${showPulse ? "pulse-once" : ""}`}
@@ -69,40 +100,25 @@ function DeadlineTaskItem({
                 </span>
               )}
             </div>
+
             <div className="date-block">
               <span className="date-day">{day}</span>
               <div className="date-month-year">
                 <span className="date-month">{month}</span>
-                <span className="date-separator"></span>
                 <span className="date-year">{year}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="delete-btn-wrapper-deadline">
-          <button
-            className="delete-btn-deadline"
-            onClick={onDelete}
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <polyline points="3 6 5 6 21 6" />
-              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-              <line x1="10" y1="11" x2="10" y2="17" />
-              <line x1="14" y1="11" x2="14" y2="17" />
-            </svg>
-          </button>
+        <div className="task_actions_deadline">
+          {!isCompleted && (
+            <EditButtonDeadline
+              isEditing={isEditing}
+              onEdit={isEditing ? handleEditSave : () => setIsEditing(true)}
+            />
+          )}
+          <DeleteButtonDeadline onDelete={onDelete} isCompleted={isCompleted} />
         </div>
       </div>
     </div>

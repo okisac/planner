@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/DeleteButton.css";
+import "../../styles/DeleteButtonSingle.css";
 
-function DeleteButton({ onDelete, isCompleted }) {
+function DeleteButtonSingle({ onDelete, isCompleted }) {
   return (
     <div className="delete-btn-wrapper-single">
       <button
@@ -31,4 +31,4 @@ function DeleteButton({ onDelete, isCompleted }) {
   );
 }
 
-export default DeleteButton;
+export default DeleteButtonSingle;
