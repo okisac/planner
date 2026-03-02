@@ -21,7 +21,7 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim() || !date) return;
-    if (title.trim().length < 2) return;
+    if (title.trim().length < 3) return;
 
     onSave({
       title: title,
@@ -42,6 +42,13 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
     if (e.target.classList.contains("deadline-modal-overlay")) {
       onCancel();
     }
+  };
+
+  const getCounterClass = () => {
+    if (title.length < 3) return "char-counter danger";
+    const remaining = 32 - title.length;
+    if (remaining <= 8) return "char-counter warn";
+    return "char-counter";
   };
 
   useEffect(() => {
@@ -65,7 +72,7 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
               maxLength={32}
               onKeyDown={handleKeyDown}
             />
-            <span className="char-counter">{title.length}/32</span>
+            <span className={getCounterClass()}>{title.length}/32</span>
           </div>
 
           <div className="input-group">
@@ -91,7 +98,7 @@ const AddDeadlineTaskInput = ({ onSave, onCancel }) => {
               type="submit"
               className="save-btn"
               onClick={handleSubmit}
-              disabled={!title.trim() || title.trim().length < 2 || !date}
+              disabled={!title.trim() || title.trim().length < 3 || !date}
             >
               Add Task
             </button>

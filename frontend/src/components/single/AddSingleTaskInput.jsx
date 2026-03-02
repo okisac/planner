@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function AddSingleTaskInput({ onSave, onCancel }) {
   const [taskText, setTaskText] = useState("");
 
   const handleSubmit = () => {
-    if (taskText.trim() && taskText.trim().length >= 2) {
+    if (taskText.trim() && taskText.trim().length >= 3) {
       onSave(taskText.trim());
       setTaskText("");
     }
@@ -25,6 +25,13 @@ function AddSingleTaskInput({ onSave, onCancel }) {
     }
   };
 
+  const getCounterClass = () => {
+    if (taskText.length < 3) return "char-counter danger";
+    const remaining = 32 - taskText.length;
+    if (remaining <= 8) return "char-counter warn";
+    return "char-counter";
+  };
+
   return (
     <div className="modal-backdrop" onClick={handleBackdropClick}>
       <div className="modal-card">
@@ -38,7 +45,7 @@ function AddSingleTaskInput({ onSave, onCancel }) {
           autoFocus
           maxLength={32}
         />
-        <span className="char-counter">{taskText.length}/32</span>
+        <span className={getCounterClass()}>{taskText.length}/32</span>
 
         <div className="modal-actions">
           <button className="cancel-btn" onClick={onCancel}>
@@ -47,7 +54,7 @@ function AddSingleTaskInput({ onSave, onCancel }) {
           <button
             className="save-btn"
             onClick={handleSubmit}
-            disabled={!taskText.trim() || taskText.trim().length < 2}
+            disabled={!taskText.trim() || taskText.trim().length < 3}
           >
             Save
           </button>

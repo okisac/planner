@@ -61,6 +61,7 @@ function SingleTaskItem({
             <EditButtonSingle
               isEditing={isEditing}
               onEdit={isEditing ? handleEditSave : () => setIsEditing(true)}
+              tempTitle={tempTitle}
             />
           )}
           <DeleteButtonSingle onDelete={onDelete} isCompleted={isCompleted} />

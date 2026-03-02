@@ -1,7 +1,7 @@
 import "../../styles/DeadlineTaskItem.css";
 import { useState, useEffect } from "react";
 import InlineEditInput from "../InlineEditInput";
-import DeleteButtonDeadline from "../deadline/DeleteButtonDeadline";
+import DeleteButtonDeadline from "./DeleteButtonDeadline";
 import EditButtonDeadline from "../deadline/EditButtonDeadline";
 import "../../styles/TaskItem.css";
 
@@ -116,6 +116,7 @@ function DeadlineTaskItem({
             <EditButtonDeadline
               isEditing={isEditing}
               onEdit={isEditing ? handleEditSave : () => setIsEditing(true)}
+              tempTitle={tempTitle}
             />
           )}
           <DeleteButtonDeadline onDelete={onDelete} isCompleted={isCompleted} />

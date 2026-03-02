@@ -121,6 +121,7 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  padding-right: 8px;
 }
 
 .task_title span {
@@ -141,7 +142,6 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding-left: 8px;
 }
 
 /* ─── 6. BUTON ETKİLEŞİMLERİ (CONTEXT SENSITIVE) ─── */

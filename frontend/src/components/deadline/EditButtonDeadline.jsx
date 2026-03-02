@@ -1,22 +1,16 @@
 import "../../styles/EditButtonDeadline.css";
 
-function EditButtonDeadline({ onEdit, isEditing }) {
-  const handleMouseDown = (e) => {
-    if (isEditing) {
-      e.preventDefault();
-      onEdit();
-    }
-  };
-
+function EditButtonDeadline({ onEdit, isEditing, tempTitle }) {
   return (
     <div
       className={`edit-btn-wrapper-deadline ${isEditing ? "save-mode" : ""}`}
     >
       <button
-        className={`edit-btn-deadline ${isEditing ? "save-btn" : ""}`}
+        className={`edit-btn-deadline ${isEditing ? "save-btn-deadline" : ""} ${isEditing && tempTitle.trim().length < 3 ? "save-btn-deadline--disabled" : ""}`}
         onMouseDown={(e) => {
-          e.preventDefault(); // Bu satır, input'un odağını kaybetmesini (Blur) ENGELLER
-          onEdit(); // Kaydetme veya Edit moduna geçme işlemini başlatır
+          e.preventDefault();
+          if (isEditing && tempTitle.trim().length < 3) return;
+          onEdit();
         }}
         type="button"
       >

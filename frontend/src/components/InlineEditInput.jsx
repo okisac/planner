@@ -37,7 +37,11 @@ function InlineEditInput({
   };
 
   const handleBlur = () => {
-    if (value.trim() !== initialValue && value.trim().length >= 3) {
+    if (value.trim().length < 3) {
+      onCancel();
+      return;
+    }
+    if (value.trim() !== initialValue) {
       onSave(value.trim());
     } else {
       onCancel();
@@ -45,6 +49,7 @@ function InlineEditInput({
   };
 
   const getCounterClass = () => {
+    if (value.length < 3) return "edit-char-counter danger";
     const remaining = maxLength - value.length;
     if (remaining <= 0) return "edit-char-counter danger";
     if (remaining <= 8) return "edit-char-counter warn";

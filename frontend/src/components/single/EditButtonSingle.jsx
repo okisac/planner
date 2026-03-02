@@ -1,20 +1,14 @@
 import "../../styles/EditButtonSingle.css";
 
-function EditButtonSingle({ onEdit, isEditing }) {
-  const handleMouseDown = (e) => {
-    if (isEditing) {
-      e.preventDefault();
-      onEdit();
-    }
-  };
-
+function EditButtonSingle({ onEdit, isEditing, tempTitle }) {
   return (
     <div className={`edit-btn-wrapper-single ${isEditing ? "save-mode" : ""}`}>
       <button
-        className={`edit-btn-single ${isEditing ? "save-btn" : ""}`}
+        className={`edit-btn-single ${isEditing ? "save-btn-single" : ""} ${isEditing && tempTitle.trim().length < 3 ? "save-btn-single--disabled" : ""}`}
         onMouseDown={(e) => {
-          e.preventDefault(); // Bu satır, input'un odağını kaybetmesini (Blur) ENGELLER
-          onEdit(); // Kaydetme veya Edit moduna geçme işlemini başlatır
+          e.preventDefault();
+          if (isEditing && tempTitle.trim().length < 3) return;
+          onEdit();
         }}
         type="button"
       >
