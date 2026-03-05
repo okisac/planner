@@ -1,8 +1,16 @@
 const BASE_URL = "http://localhost:5001/api";
 
+// Her istekte token'ı header'a ekleyen yardımcı fonksiyon
+const authHeaders = () => ({
+  "Content-Type": "application/json",
+  Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
+
 // 1. Tüm taskları getir
 export const fetchAllTasks = async () => {
-  const response = await fetch(`${BASE_URL}/tasks`);
+  const response = await fetch(`${BASE_URL}/tasks`, {
+    headers: authHeaders(),
+  });
   if (!response.ok) throw new Error("Tasklar getirilemedi");
   return await response.json();
 };
@@ -11,7 +19,7 @@ export const fetchAllTasks = async () => {
 export const createTask = async (taskData) => {
   const response = await fetch(`${BASE_URL}/tasks`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: authHeaders(),
     body: JSON.stringify(taskData),
   });
   if (!response.ok) throw new Error("Task eklenemedi");
@@ -22,7 +30,7 @@ export const createTask = async (taskData) => {
 export const updateTask = async (id, data) => {
   const response = await fetch(`${BASE_URL}/tasks/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: authHeaders(),
     body: JSON.stringify(data),
   });
   if (!response.ok) throw new Error("Task güncellenemedi");
@@ -33,6 +41,7 @@ export const updateTask = async (id, data) => {
 export const deleteTask = async (id) => {
   const response = await fetch(`${BASE_URL}/tasks/${id}`, {
     method: "DELETE",
+    headers: authHeaders(),
   });
   if (!response.ok) throw new Error("Task silinemedi");
   return await response.json();

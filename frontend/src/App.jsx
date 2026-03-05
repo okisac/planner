@@ -1,18 +1,26 @@
+import { useState } from "react";
 import "./App.css";
-// import TaskItem from "./components/TaskItem";
 import SingleTaskItem from "./components/single/SingleTaskItem";
 import DeadlineTaskItem from "./components/deadline/DeadlineTaskItem";
 import AddSingleTaskInput from "./components/single/AddSingleTaskInput";
 import AddDeadlineTaskInput from "./components/deadline/AddDeadlineTaskInput";
+import Navbar from "./components/Navbar";
 import "./styles/TaskItem.css";
 import "./styles/AddSingleTaskInput.css";
 import "./styles/AddDeadlineTaskInput.css";
 import "./styles/DeadlineTaskItem.css";
 import "./styles/InlineEditInput.css";
+import "./styles/LoginPage.css";
 import { useTasks } from "./hooks/useTasks";
 import { parseDeadlineDate } from "./utils/dateUtils";
+import LoginPage from "./components/LoginPage"; // LoginPage import
 
 function App() {
+  const [user, setUser] = useState(() => {
+    const token = localStorage.getItem("token");
+    return token ? { username: localStorage.getItem("username") } : null;
+  });
+
   const {
     singleTasks,
     deadlineTasks,
@@ -28,18 +36,25 @@ function App() {
     handleToggleDeadline,
     handleDeleteSingle,
     handleDeleteDeadline,
-  } = useTasks();
+  } = useTasks(user);
+
+  if (!user) {
+    return <LoginPage onLogin={setUser} />;
+  }
 
   return (
     <>
       <div>
         <header>
-          <h1>Plan your daily tasks</h1>
+          <h1 id="app-title">Plan your daily tasks</h1>
         </header>
       </div>
       <main className="app-container">
         <div className="wrapper">
-          <div>
+          <div className="tasks_head">
+            <div className="logout">
+              <Navbar />
+            </div>
             <h2>Tasks</h2>
           </div>
           <div className="task_container">

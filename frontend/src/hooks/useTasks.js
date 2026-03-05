@@ -7,7 +7,7 @@ import {
   deleteTask,
 } from "../api/tasks";
 
-export function useTasks() {
+export function useTasks(user) {
   // ─────────────────────────────────────────
   // STATE
   // ─────────────────────────────────────────
@@ -20,8 +20,18 @@ export function useTasks() {
   // LOAD
   // ─────────────────────────────────────────
   useEffect(() => {
-    loadTasks();
-  }, []);
+    // 1. Önce gerçekten bir kullanıcı var mı kontrol et (App.jsx'ten gelen user)
+    // 2. Tarayıcıda token var mı kontrol et
+    const token = localStorage.getItem("token");
+
+    if (user && token) {
+      loadTasks();
+    } else {
+      // Kullanıcı çıkış yaptıysa listeyi temizle (Güvenlik için önemli!)
+      setSingleTasks([]);
+      setDeadlineTasks([]);
+    }
+  }, [user]); // <--- Sadece 'user' state'ini izle
 
   const loadTasks = async () => {
     try {
