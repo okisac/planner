@@ -1,4 +1,4 @@
-const BASE_URL = "https://all-tasks-done.onrender.com/api";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5001/api";
 
 // Her istekte token'ı header'a ekleyen yardımcı fonksiyon
 const authHeaders = () => ({
