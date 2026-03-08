@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const app = express();
-const port = 5001; // React genelde 5173'te çalışır, çakışmasın diye 5001 yaptık
+const port = process.env.PORT || 5001; // React genelde 5173'te çalışır, çakışmasın diye 5001 yaptık
 
 // Middleware
 app.use(cors());

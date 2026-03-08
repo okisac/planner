@@ -1,0 +1,133 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.modal-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px; /* daha az padding */
+  width: 100%;
+  max-width: 380px; /* daha dar */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* daha sıkı boşluk */
+  overflow: hidden; /* taşmayı kart içinde kes */
+  box-sizing: border-box;
+}
+
+.task-input {
+  width: 100%;
+  padding: 11px 14px; /* kompakt padding */
+  font-size: 1rem; /* biraz küçült */
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  box-sizing: border-box; /* padding taşmayı önler */
+}
+
+.task-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+/* Actions kısmı da kompakt olsun */
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.cancel-btn,
+.save-btn {
+  padding: 7px 14px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.cancel-btn,
+.save-btn {
+  padding: 8px 16px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.cancel-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+}
+
+.cancel-btn:hover {
+  background: #e5e7eb;
+}
+
+.save-btn {
+  background: #10b981;
+  color: white;
+  border: none;
+}
+
+.save-btn:hover {
+  background: #059669;
+}
+
+.save-btn:disabled {
+  background: #6ee7b7;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-card {
+    margin: 12px;
+    padding: 18px 20px;
+    border-radius: 10px;
+  }
+}
+
+.char-counter {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+  margin-top: 2px;
+}
+
+.char-counter.danger {
+  color: #ef4444;
+}
+.char-counter.warn {
+  color: #f97316;
+}

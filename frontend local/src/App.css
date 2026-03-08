@@ -1,0 +1,253 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+
+/* * {
+  font-family: "DM Serif Display", serif;
+} */
+
+#root {
+  background-color: rgba(180, 180, 180, 0.818);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  align-items: center;
+  font-family: "Helvetica", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-container {
+  width: 100%;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+}
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  width: 100%;
+  background-color: rgba(58, 58, 58, 0.742);
+  border-radius: 2rem;
+  margin-top: 4px;
+}
+
+#app-title {
+  /* font-size: 1.8rem;
+  color: #f5f5f5;
+  margin: 0;
+  font-weight: 400; */
+
+  width: 50vh;
+  margin: 20px 10px;
+  font-size: 2rem;
+  text-align: center;
+  color: #000000;
+  border-radius: 16px;
+}
+
+/* -------------------------------------------------- SARI RENK */
+.wrapper {
+  width: 66%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2rem;
+  padding: 2rem;
+  display: flex;
+  z-index: 1001;
+  backdrop-filter: blur(15px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    15px 15px 30px 4px rgba(0, 0, 0, 0.2),
+    -15px -15px 30px 4px rgba(0, 0, 0, 0.2);
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  gap: 1rem;
+  border-radius: 32px;
+}
+
+.tasks_head {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-inline: 1rem;
+  border-bottom: 1px solid #000000;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background-color: tomato;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.task_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.task_type {
+  flex: 1 1 0%; /* Eşit genişlik */
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem; /* Elemanlar arası boşluk */
+  width: 100%;
+  min-height: 50vh;
+  border-right: 2px solid #ffffff;
+
+  border-radius: 12px;
+  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
+
+  background-color: rgb(255, 232, 181);
+  border-radius: 16px;
+
+  box-shadow:
+    -10px 10px 20px rgba(0, 0, 0, 0.5),
+    5px 0px 15px rgba(255, 255, 255, 0.3);
+}
+
+.task_type_head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  position: relative;
+
+  border-top: 1px solid #e6e6e6;
+
+  padding-block: 1rem;
+  background-color: rgb(159, 159, 159);
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  text-align: center;
+  color: #333333;
+  box-shadow: #333333 0px 4px 8px -2px;
+}
+
+/* Başlık tam ortada kalır */
+.task_type_head h3 {
+  margin: 0;
+  font-size: 1.3rem; /* boyutunu kendi isteğine göre ayarla */
+  text-align: center;
+  flex: 1; /* alanı kaplasın, merkezde kalsın */
+}
+
+/* Buton container'ı sağa yasla */
+.add_btn_container {
+  position: absolute;
+  right: 10px; /* sağdan 2rem içeride */
+  top: 50%;
+  transform: translateY(-50%); /* dikeyde tam ortala */
+}
+
+/* From Uiverse.io by andrew-demchenk0 */
+.add_btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px;
+  height: 32px;
+  width: 32px;
+  border: 1px solid #292929;
+  background: green;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.plus {
+  font-size: 24px;
+  color: #fff;
+}
+
+.add_btn:hover {
+  background: rgb(8, 147, 82);
+  border: 1px solid black;
+}
+
+.add_btn:hover .plus {
+  animation: slope 1.2s linear infinite;
+}
+
+@keyframes slope {
+  0% {
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+
+  100% {
+  }
+}
+
+.add_btn:focus,
+.add_btn:focus-visible {
+  outline: none !important;
+}
+
+.task_type_body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2px;
+  padding-bottom: 6px;
+  gap: 6px;
+  width: 100%;
+}
+
+/* ----------------------------------------------------------------------------------------------------  */
+
+.ornek {
+  width: 100%;
+  height: 200px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px;
+}
+
+.card {
+  width: 150px;
+  height: 150px;
+  background: #e0e0e0;
+  border-radius: 50%;
+  border-top: 1px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #a0a0a0;
+  border-bottom: 4px solid #808080;
+  /* box-shadow: 0 4px 0 #606060; */
+  cursor: pointer;
+  transition: all 0.1s;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #606060;
+}
+.card:active {
+  transform: translateY(4px);
+  box-shadow: 0 0 0 #606060;
+  border-bottom: 2px solid #808080;
+}
+/* ----------------------------------------------------------------------------------------------------  */

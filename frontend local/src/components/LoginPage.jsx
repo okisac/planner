@@ -17,8 +17,8 @@ function LoginPage({ onLogin }) {
 
     try {
       const endpoint = isRegister
-        ? "https://all-tasks-done.onrender.com/api/auth/register"
-        : "https://all-tasks-done.onrender.com/api/auth/login";
+        ? "http://localhost:5001/api/auth/register"
+        : "http://localhost:5001/api/auth/login";
 
       const response = await fetch(endpoint, {
         method: "POST",
