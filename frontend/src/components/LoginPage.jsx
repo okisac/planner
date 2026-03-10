@@ -2,6 +2,8 @@ import React from "react";
 const { useState, useEffect, useRef } = React;
 import LogoAnimation from "./LogoAnimation";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 function LoginPage({ onLogin }) {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
