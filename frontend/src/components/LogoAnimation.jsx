@@ -22,10 +22,10 @@ const STEPS = [
   { text: "All tasks ", dots: "...?", doneText: "", hold: true },
   { text: "All tasks ", dots: "", doneText: "", hold: true },
   // 4. " done!" harf harf (Yeşil ve Ünlemli: 100ms)
-  ...Array.from(" done! ✅").map((_, i) => ({
+  ...Array.from(" done!").map((_, i) => ({
     text: "All tasks ",
     dots: "",
-    doneText: "done! ✅".slice(0, i + 1),
+    doneText: "done!".slice(0, i + 1),
   })),
 ];
 
