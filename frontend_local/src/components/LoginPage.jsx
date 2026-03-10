@@ -37,8 +37,8 @@ function LoginPage({ onLogin }) {
 
     try {
       const endpoint = isRegister
-        ? "http://localhost:5001/api/auth/register"
-        : "http://localhost:5001/api/auth/login";
+        ? `${BASE_URL}/auth/register`
+        : `${BASE_URL}/auth//login`;
 
       const response = await fetch(endpoint, {
         method: "POST",
