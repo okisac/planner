@@ -13,7 +13,7 @@ import "./styles/InlineEditInput.css";
 import "./styles/LoginPage.css";
 import { useTasks } from "./hooks/useTasks";
 import { parseDeadlineDate } from "./utils/dateUtils";
-import LoginPage from "./components/LoginPage"; // LoginPage import
+import LoginPage from "./components/LoginPage";
 
 function App() {
   const [user, setUser] = useState(() => {

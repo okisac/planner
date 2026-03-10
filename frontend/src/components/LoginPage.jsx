@@ -1,11 +1,31 @@
 import React from "react";
-const { useState } = React;
+const { useState, useEffect, useRef } = React;
+import LogoAnimation from "./LogoAnimation";
 
 function LoginPage({ onLogin }) {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [activePanel, setActivePanel] = useState(null);
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      // Eğer tıklanan yer wrapperRef (nav + paneller) dışındaysa kapat
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setActivePanel(null);
+      }
+    }
+
+    // Dinleyiciyi ekle
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Bileşen kapandığında dinleyiciyi temizle (Memory leak önlemek için)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,8 +37,8 @@ function LoginPage({ onLogin }) {
 
     try {
       const endpoint = isRegister
-        ? "https://all-tasks-done.onrender.com/api/auth/register"
-        : "https://all-tasks-done.onrender.com/api/auth/login";
+        ? "http://localhost:5001/api/auth/register"
+        : "http://localhost:5001/api/auth/login";
 
       const response = await fetch(endpoint, {
         method: "POST",
@@ -47,6 +67,112 @@ function LoginPage({ onLogin }) {
     <div className="login-page">
       <div className="login-wrapper">
         {/* Logo / Başlık */}
+        <LogoAnimation />
+        <div ref={wrapperRef} style={{ position: "relative" }}>
+          <nav>
+            <button
+              className="about-btn"
+              onClick={() =>
+                setActivePanel(activePanel === "about" ? null : "about")
+              }
+              aria-expanded={activePanel === "about"}
+            >
+              About
+            </button>
+            <button
+              className="about-btn"
+              onClick={() =>
+                setActivePanel(activePanel === "tech" ? null : "tech")
+              }
+              aria-expanded={activePanel === "tech"}
+            >
+              Tech Stack
+            </button>
+            <button
+              className="about-btn demo-btn"
+              onClick={() =>
+                setActivePanel(activePanel === "demo" ? null : "demo")
+              }
+              aria-expanded={activePanel === "demo"}
+            >
+              Demo Login
+            </button>
+          </nav>
+        </div>
+        <div
+          className={`about-panel ${activePanel === "about" ? "visible" : ""}`}
+        >
+          <div className="about-content">
+            <p>
+              With this application, you can add and manage time-independent
+              tasks or tasks with deadlines.
+            </p>
+            <ul>
+              <li>
+                Add tasks, edit them, mark them as completed, and delete them.
+              </li>
+              <li>
+                If there is a deadline, you can also enter a date and easily
+                identify and better manage tasks with deadlines.
+              </li>
+            </ul>
+            <hr />
+
+            <p>
+              <strong>Über</strong>
+              <br />
+              <br />
+              Mit dieser Anwendung können Sie zeitunabhängige Aufgaben oder
+              Aufgaben mit Fristen hinzufügen und diese verwalten.
+            </p>
+            <ul>
+              <li>
+                Fügen Sie Aufgaben hinzu, bearbeiten Sie sie, markieren Sie sie
+                als erledigt und löschen Sie sie.
+              </li>
+              <li>
+                Wenn es eine Frist gibt, können Sie zusätzlich ein Datum
+                eingeben und Aufgaben mit Fristen leicht erkennen und besser
+                verwalten.
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* TECH STACK PANEL */}
+        <div
+          className={`about-panel ${activePanel === "tech" ? "visible" : ""}`}
+        >
+          <div className="built-with-content">
+            <p>
+              Developed with React, Node.js, and PostgreSQL on Supabase.
+              Deployed via Render.
+            </p>
+            <hr />
+            <p>
+              <strong>Erstellt mit</strong>
+              <br />
+              <br />
+              Entwickelt mit React, Node.js und PostgreSQL auf Supabase.
+              Bereitgestellt über Render.
+            </p>
+          </div>
+        </div>
+
+        {/* DEMO PANEL */}
+        <div
+          className={`about-panel ${activePanel === "demo" ? "visible" : ""}`}
+        >
+          <div className="demo-content">
+            <p>
+              <strong>Username : </strong> Gast
+            </p>
+            <p>
+              <strong>Password : </strong> Gast1234
+            </p>
+          </div>
+        </div>
+
         <div className="login-header">
           <h1 id="login-title">{isRegister ? "Create Account" : "Welcome"}</h1>
           <p className="login-subtitle">
