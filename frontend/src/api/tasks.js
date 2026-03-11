@@ -8,7 +8,7 @@ const authHeaders = () => ({
 
 // 1. Tüm taskları getir
 export const fetchAllTasks = async () => {
-  const response = await fetch(`${BASE_URL}/api/tasks`, {
+  const response = await fetch(`${BASE_URL}/tasks`, {
     headers: authHeaders(),
   });
   if (!response.ok) throw new Error("Tasklar getirilemedi");
@@ -17,7 +17,7 @@ export const fetchAllTasks = async () => {
 
 // 2. Yeni task ekle (single, deadline, recurring hepsi buradan)
 export const createTask = async (taskData) => {
-  const response = await fetch(`${BASE_URL}/api/tasks`, {
+  const response = await fetch(`${BASE_URL}/tasks`, {
     method: "POST",
     headers: authHeaders(),
     body: JSON.stringify(taskData),
@@ -28,7 +28,7 @@ export const createTask = async (taskData) => {
 
 // 3. Task güncelle (title düzenleme veya toggle, ikisi de buradan)
 export const updateTask = async (id, data) => {
-  const response = await fetch(`${BASE_URL}/api/tasks/${id}`, {
+  const response = await fetch(`${BASE_URL}/tasks/${id}`, {
     method: "PUT",
     headers: authHeaders(),
     body: JSON.stringify(data),
@@ -39,7 +39,7 @@ export const updateTask = async (id, data) => {
 
 // 4. Task sil
 export const deleteTask = async (id) => {
-  const response = await fetch(`${BASE_URL}/api/tasks/${id}`, {
+  const response = await fetch(`${BASE_URL}/tasks/${id}`, {
     method: "DELETE",
     headers: authHeaders(),
   });
