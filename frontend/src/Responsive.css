@@ -1,0 +1,95 @@
+/* CSS Custom Properties - Responsive Değerler */
+
+:root {
+  /* Wrapper */
+  --wrapper-width: clamp(320px, 90vw, 1400px);
+  --wrapper-border-radius: clamp(1rem, 5vw, 5rem);
+  --wrapper-padding: clamp(1rem, 3vw, 2rem);
+  --wrapper-gap: clamp(0.5rem, 2vw, 1rem);
+
+  /* Header */
+  --header-height: clamp(60px, 10vh, 100px);
+  --header-border-radius: clamp(1rem, 3vw, 2rem);
+
+  /* App Title */
+  --app-title-width: clamp(200px, 50vh, 400px);
+  --app-title-font-size: clamp(1.2rem, 3vw, 2rem);
+  --app-title-margin: clamp(10px, 2vw, 20px) clamp(5px, 2vw, 10px);
+  --app-title-border-radius: clamp(8px, 2vw, 16px);
+
+  /* Task Type Head */
+  --task-head-padding-block: clamp(0.5rem, 2vw, 1.5rem);
+  --task-head-padding-inline: clamp(0.5rem, 2vw, 1rem);
+  --task-head-font-size: clamp(0.9rem, 2vw, 1.5rem);
+
+  /* Colors */
+  --color-primary: #00ff55;
+  --color-secondary: #00ff55;
+  --color-bg-light: #d8c9ae;
+  --color-bg-paper: #fef9e7;
+}
+
+/* Responsive Davranışlar */
+
+@media (max-width: 1080px) {
+  .wrapper {
+    --home-width: 80%;
+  }
+
+  .task_container {
+    --taskCon-width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    --home-width: 85%;
+  }
+
+  .task_container {
+    --taskCon-width: 104%;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    --home-width: 90%;
+  }
+
+  .mobile-tabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+
+  .mobile-tabs button {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    background: #9a9a9a;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .mobile-tabs button.active {
+    background: var(--color-primary);
+    color: rgb(0, 0, 0);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+  }
+
+  /* Mobile: birini göster, diğerini gizle - JS'e bırak */
+}
+
+@media (min-width: 481px) {
+  /* Desktop: her ikisi de yan yana görünsün */
+  .task_type {
+    display: flex !important;
+  }
+
+  .mobile-tabs {
+    display: none;
+  }
+}

@@ -25,32 +25,32 @@
   align-items: center;
 }
 header {
+  font-family: "Courier New", Courier, monospace;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10vh;
+  height: var(--header-height);
   width: 100%;
-  background-color: rgba(58, 58, 58, 0.742);
-  border-radius: 2rem;
+  background-color: rgb(255, 255, 255);
+  border-radius: var(--header-border-radius);
   margin-top: 4px;
+  margin-bottom: 4px;
+  border-top: 2px solid rgb(255, 0, 0);
+  border-left: 2px solid rgb(183, 0, 255);
+  border-bottom: 2px solid rgb(255, 0, 0);
+  border-right: 2px solid rgb(183, 0, 255);
 }
 
 #app-title {
-  /* font-size: 1.8rem;
-  color: #f5f5f5;
-  margin: 0;
-  font-weight: 400; */
-
-  width: 50vh;
-  margin: 20px 10px;
-  font-size: 2rem;
+  margin: var(--app-title-margin);
+  font-size: var(--app-title-font-size);
   text-align: center;
   color: #000000;
-  border-radius: 16px;
+  border-radius: var(--app-title-border-radius);
 }
 
 /* -------------------------------------------------- SARI RENK */
-.wrapper {
+/* .wrapper {
   width: 66%;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 2rem;
@@ -70,6 +70,30 @@ header {
   min-height: 100vh;
   gap: 1rem;
   border-radius: 32px;
+} */
+
+.wrapper {
+  background-color: #dddddd;
+  --home-width: 75%;
+  width: var(--wrapper-width);
+  border-radius: var(--wrapper-border-radius);
+  padding: var(--wrapper-padding);
+  display: flex;
+  z-index: 1001;
+  backdrop-filter: blur(15px);
+  border-top: 2px solid rgb(255, 0, 0);
+  border-left: 2px solid rgb(183, 0, 255);
+  border-bottom: 2px solid rgb(255, 0, 0);
+  border-right: 2px solid rgb(183, 0, 255);
+  box-shadow:
+    5px 5px 15px 4px rgba(0, 0, 0, 0.2),
+    -5px -5px 15px 4px rgba(0, 0, 0, 0.2);
+
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  gap: var(--wrapper-gap);
 }
 
 .tasks_head {
@@ -104,30 +128,53 @@ header {
   flex-direction: row;
   justify-content: center;
   gap: 1rem;
-  width: 100%;
+  --taskCon-width: 85%;
+  width: var(--taskCon-width);
+}
+
+h2 {
+  color: #000;
 }
 
 .task_type {
-  flex: 1 1 0%; /* Eşit genişlik */
+  flex: 1 1 0%;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
-  gap: 0.5rem; /* Elemanlar arası boşluk */
+  gap: 0;
   width: 100%;
   min-height: 50vh;
-  border-right: 2px solid #ffffff;
-
-  border-radius: 12px;
-  box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.08);
-
-  background-color: rgb(255, 232, 181);
+  background-color: rgb(255, 255, 255);
   border-radius: 16px;
-
   box-shadow:
     -10px 10px 20px rgba(0, 0, 0, 0.5),
     5px 0px 15px rgba(255, 255, 255, 0.3);
+  overflow: hidden;
+  position: relative;
+}
+
+.task_type::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: rgba(255, 25, 0, 0.5);
+  z-index: 10;
+}
+
+.task_type::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: rgba(255, 25, 0, 0.5);
+  z-index: 10;
 }
 
 .task_type_head {
@@ -136,30 +183,57 @@ header {
   justify-content: space-evenly;
   align-items: center;
   position: relative;
+  z-index: 10;
+  align-self: stretch;
 
-  border-top: 1px solid #e6e6e6;
-
-  padding-block: 1rem;
-  background-color: rgb(159, 159, 159);
-  width: 100%;
-  border-radius: 12px 12px 0 0;
+  padding-block: var(--task-head-padding-block);
+  padding-inline: var(--task-head-padding-inline);
+  background-color: var(--color-bg-light);
+  border-radius: 0;
   text-align: center;
-  color: #333333;
-  box-shadow: #333333 0px 4px 8px -2px;
+  color: #2c3e50;
+  border-bottom: 2px solid rgba(255, 25, 0, 0.5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.task_type_head::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: rgba(255, 25, 0, 0.5);
+  z-index: 10;
+}
+
+.task_type_head::after {
+  content: "";
+  position: absolute;
+  right: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: rgba(255, 25, 0, 0.5);
+  z-index: 10;
 }
 
 /* Başlık tam ortada kalır */
 .task_type_head h3 {
   margin: 0;
-  font-size: 1.3rem; /* boyutunu kendi isteğine göre ayarla */
+  font-size: var(--task-head-font-size);
   text-align: center;
-  flex: 1; /* alanı kaplasın, merkezde kalsın */
+  flex: 1;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
 /* Buton container'ı sağa yasla */
 .add_btn_container {
   position: absolute;
-  right: 10px; /* sağdan 2rem içeride */
+  right: 8%; /* sağdan 2rem içeride */
   top: 50%;
   transform: translateY(-50%); /* dikeyde tam ortala */
 }
@@ -170,11 +244,11 @@ header {
   justify-content: center;
   align-items: center;
   padding: 8px;
-  height: 32px;
-  width: 32px;
+  height: 2.4rem;
+  width: 2.4rem;
   border: 1px solid #292929;
   background: green;
-  border-radius: 20px;
+  border-radius: 2rem;
   cursor: pointer;
 }
 
@@ -213,10 +287,11 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 2px;
-  padding-bottom: 6px;
+  justify-content: center;
+  padding-inline: 0.6rem;
+  padding-block: 6px;
   gap: 6px;
-  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ----------------------------------------------------------------------------------------------------  */

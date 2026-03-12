@@ -4,6 +4,8 @@ import LogoAnimation from "./LogoAnimation";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
+console.log("BASE_URL test:", BASE_URL);
+
 function LoginPage({ onLogin }) {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
@@ -101,6 +103,7 @@ function LoginPage({ onLogin }) {
             </button>
           </nav>
         </div>
+        {/* ABOUT PANEL */}
         <div
           className={`about-panel ${activePanel === "about" ? "visible" : ""}`}
         >

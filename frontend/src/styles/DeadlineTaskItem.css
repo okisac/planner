@@ -2,9 +2,14 @@
 
 /* ─── TIMELINE WRAPPER ─── */
 .timeline-wrapper {
-  width: 96%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 1rem;
+  padding-block: 6px;
+  gap: 6px;
+  box-sizing: border-box;
 }
 
 /* ─── DEADLINE ITEM ─── */
@@ -13,10 +18,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
   gap: clamp(6px, 2vw, 10px);
-  padding: 6px 0;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .deadline-item.is-completed {
@@ -128,7 +132,7 @@
   justify-content: space-between;
   gap: 4px;
   padding: 10px 8px 10px 12px;
-  background: linear-gradient(145deg, #ffffff, #e0e0e0);
+  background: linear-gradient(-90deg, #edededbf, #e9e9e9);
   border-radius: 12px;
   border-top: 1px solid #ffffff;
   border-right: 1px solid #a0a0a0;
@@ -137,7 +141,7 @@
   transition: all 0.3s ease;
 }
 
-.task-body::after {
+.task-body::before {
   content: "";
   position: absolute;
   left: 0;
@@ -145,10 +149,10 @@
   width: 6px;
   height: 100%;
   border-radius: 12px 0 0 12px;
-  background-color: #8e1b32;
+  background-color: #ee3b5f;
 }
 
-.deadline-item.is-completed .task-body::after {
+.deadline-item.is-completed .task-body::before {
   background-color: #4a7c59;
 }
 

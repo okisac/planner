@@ -14,6 +14,7 @@ import "./styles/LoginPage.css";
 import { useTasks } from "./hooks/useTasks";
 import { parseDeadlineDate } from "./utils/dateUtils";
 import LoginPage from "./components/LoginPage"; // LoginPage import
+import "./Responsive.css";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -57,9 +58,26 @@ function App() {
             </div>
             <h2>Tasks</h2>
           </div>
+          <div className="mobile-tabs">
+            <button
+              className={activeTab === "single" ? "active" : ""}
+              onClick={() => setActiveTab("single")}
+            >
+              Single Tasks
+            </button>
+            <button
+              className={activeTab === "deadline" ? "active" : ""}
+              onClick={() => setActiveTab("deadline")}
+            >
+              Has Deadline
+            </button>
+          </div>
           <div className="task_container">
             {/* SINGLE TASKS */}
-            <div className="task_type">
+            <div
+              className="task_type"
+              style={{ display: activeTab === "single" ? "flex" : "none" }}
+            >
               <div className="task_type_head">
                 <h3>Single Tasks</h3>
                 <div className="add_btn_container">
@@ -92,7 +110,10 @@ function App() {
             </div>
 
             {/* DEADLINE TASKS */}
-            <div className="task_type">
+            <div
+              className="task_type"
+              style={{ display: activeTab === "deadline" ? "flex" : "none" }}
+            >
               <div className="task_type_head">
                 <h3>Has Deadline</h3>
                 <div className="add_btn_container">
