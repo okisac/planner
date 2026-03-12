@@ -39,6 +39,8 @@ function App() {
     handleDeleteDeadline,
   } = useTasks(user);
 
+  const [activeTab, setActiveTab] = useState("single");
+
   if (!user) {
     return <LoginPage onLogin={setUser} />;
   }
