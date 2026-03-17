@@ -1,6 +1,7 @@
 import React from "react";
 const { useState, useEffect, useRef } = React;
 import LogoAnimation from "./LogoAnimation";
+import "./styles/LoginPage.css";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
