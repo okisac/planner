@@ -4,8 +4,6 @@ import LogoAnimation from "./LogoAnimation";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
-console.log("BASE_URL test:", BASE_URL);
-
 function LoginPage({ onLogin }) {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState("");
@@ -199,6 +197,7 @@ function LoginPage({ onLogin }) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
+                autoComplete="username"
               />
             </div>
 
@@ -211,7 +210,7 @@ function LoginPage({ onLogin }) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                // placeholder="••••••••"
+                autoComplete={isRegister ? "new-password" : "current-password"}
               />
             </div>
 
